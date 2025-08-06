@@ -72,6 +72,8 @@
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Dashboard.aspx" />
+    <Content Include="AdminEmployeeManagement.aspx" />
+    <Content Include="EmployeeView.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,6 +127,20 @@
     </Compile>
     <Compile Include="Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminEmployeeManagement.aspx.cs">
+      <DependentUpon>AdminEmployeeManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEmployeeManagement.aspx.designer.cs">
+      <DependentUpon>AdminEmployeeManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeView.aspx.cs">
+      <DependentUpon>EmployeeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EmployeeView.aspx.designer.cs">
+      <DependentUpon>EmployeeView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

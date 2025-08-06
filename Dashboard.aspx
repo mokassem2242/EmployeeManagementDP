@@ -247,6 +247,26 @@
                             Add, edit, and manage employee information including personal details,
                             department assignments, and position updates.
                         </p>
+                        <div style="margin-top: 15px;">
+                            <a href="AdminEmployeeManagement.aspx" class="btn-logout"
+                                style="text-decoration: none; display: inline-block; margin-top: 10px;">
+                                Manage Employees
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">👤</div>
+                        <h3 class="feature-title">My Profile</h3>
+                        <p class="feature-description">
+                            View your personal employee information, contact details, and employment status.
+                        </p>
+                        <div style="margin-top: 15px;">
+                            <a href="EmployeeView.aspx" class="btn-logout"
+                                style="text-decoration: none; display: inline-block; margin-top: 10px;">
+                                View My Profile
+                            </a>
+                        </div>
                     </div>
 
                     <div class="feature-card">

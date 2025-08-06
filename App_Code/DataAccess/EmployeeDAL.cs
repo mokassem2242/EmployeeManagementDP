@@ -202,5 +202,26 @@ namespace EmployeService.DataAccess
         {
             return SearchEmployees(null, null, employmentStatus);
         }
+
+        /// <summary>
+        /// Get employee by UserID (for employees to view their own details)
+        /// </summary>
+        public DataTable GetEmployeeByUserId(int userId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_Employee_GetByUserId", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@UserID", userId);
+                    
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataTable dataTable = new DataTable("Employees");
+                    adapter.Fill(dataTable);
+                    
+                    return dataTable;
+                }
+            }
+        }
     }
 } 
