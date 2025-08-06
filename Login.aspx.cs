@@ -35,7 +35,7 @@ namespace EmployeService
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             // Debug: Write to response to see if this method is called
-            Response.Write("<script>alert('btnLogin_Click method was called!');</script>");
+            //Response.Write("<script>alert('btnLogin_Click method was called!');</script>");
             
             try
             {

@@ -117,10 +117,19 @@ namespace EmployeService
                 {
                     ShowAlert("No employees found matching your search criteria.", "info");
                 }
+                
+                // Update the UpdatePanels
+                UpdatePanel1.Update();
+                UpdatePanel2.Update();
+                
+                // Hide search loading
+                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
             }
             catch (Exception ex)
             {
                 ShowAlert("Error searching employees: " + ex.Message, "danger");
+                // Hide search loading on error
+                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
             }
         }
 
@@ -549,10 +558,15 @@ namespace EmployeService
                 
                 gvEmployees.DataSource = employees;
                 gvEmployees.DataBind();
+                
+                // Hide search loading
+                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
             }
             catch (Exception ex)
             {
                 ShowAlert("Error filtering by department: " + ex.Message, "danger");
+                // Hide search loading on error
+                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
             }
         }
 
@@ -575,60 +589,18 @@ namespace EmployeService
                 
                 gvEmployees.DataSource = employees;
                 gvEmployees.DataBind();
+                
+                // Hide search loading
+                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
             }
             catch (Exception ex)
             {
                 ShowAlert("Error filtering by status: " + ex.Message, "danger");
+                // Hide search loading on error
+                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
             }
         }
 
-        protected void btnClear_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Clear search filters
-                txtSearch.Text = "";
-                ddlDepartment.SelectedIndex = 0;
-                ddlStatus.SelectedIndex = 0;
-                
-                // Reload all employees
-                LoadEmployees();
-                
-                ShowAlert("Search filters cleared successfully.", "success");
-            }
-            catch (Exception ex)
-            {
-                ShowAlert("Error clearing filters: " + ex.Message, "danger");
-            }
-        }
 
-        protected void btnTestSearch_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Test search functionality
-                string searchTerm = txtSearch.Text.Trim();
-                string departmentFilter = ddlDepartment.SelectedValue;
-                string statusFilter = ddlStatus.SelectedValue;
-                
-                // Convert department filter to int? if not empty
-                int? departmentId = null;
-                if (!string.IsNullOrEmpty(departmentFilter))
-                {
-                    departmentId = int.Parse(departmentFilter);
-                }
-                
-                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, departmentId, statusFilter);
-                
-                gvEmployees.DataSource = employees;
-                gvEmployees.DataBind();
-                
-                ShowAlert($"Test search completed. Found {employees.Rows.Count} employees.", "info");
-            }
-            catch (Exception ex)
-            {
-                ShowAlert("Error during test search: " + ex.Message, "danger");
-            }
-        }
     }
 } 

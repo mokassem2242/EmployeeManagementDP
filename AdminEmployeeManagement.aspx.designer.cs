@@ -14,6 +14,10 @@ namespace EmployeService {
         
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        
         protected global::System.Web.UI.WebControls.LinkButton btnLogout;
         
         protected global::System.Web.UI.WebControls.Panel alertPanel;
@@ -27,6 +31,8 @@ namespace EmployeService {
         protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
         
         protected global::System.Web.UI.WebControls.Button btnSearch;
+        
+
         
         protected global::System.Web.UI.WebControls.Button btnAddNew;
         

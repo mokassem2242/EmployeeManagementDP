@@ -368,6 +368,8 @@ BEGIN
            e.FirstName LIKE '%' + @SearchTerm + '%' OR 
            e.LastName LIKE '%' + @SearchTerm + '%' OR 
            e.EmiratesID LIKE '%' + @SearchTerm + '%' OR
+           e.WorkEmail LIKE '%' + @SearchTerm + '%' OR
+           e.PersonalEmail LIKE '%' + @SearchTerm + '%' OR
            e.FirstName + ' ' + e.LastName LIKE '%' + @SearchTerm + '%')
     AND (@DepartmentID IS NULL OR e.DepartmentID = @DepartmentID)
     AND (@EmploymentStatus IS NULL OR e.EmploymentStatus = @EmploymentStatus)

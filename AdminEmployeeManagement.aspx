@@ -449,9 +449,18 @@
                 <h1 class="page-title">Employee Management</h1>
 
                 <!-- Alert Messages -->
-                <asp:Panel ID="alertPanel" runat="server" Visible="false" CssClass="alert">
-                    <asp:Label ID="alertMessage" runat="server"></asp:Label>
-                </asp:Panel>
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Panel ID="alertPanel" runat="server" Visible="false" CssClass="alert">
+                            <asp:Label ID="alertMessage" runat="server"></asp:Label>
+                        </asp:Panel>
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnSearch" EventName="Click" />
+                        <asp:AsyncPostBackTrigger ControlID="ddlDepartment" EventName="SelectedIndexChanged" />
+                        <asp:AsyncPostBackTrigger ControlID="ddlStatus" EventName="SelectedIndexChanged" />
+                    </Triggers>
+                </asp:UpdatePanel>
 
                 <!-- Search Section -->
                 <div class="search-section">
@@ -459,8 +468,7 @@
                         <div class="form-group">
                             <label class="form-label">Search Employee</label>
                             <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control"
-                                placeholder="Search by name, Emirates ID, or email..." AutoPostBack="true"
-                                OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
+                                placeholder="Search by name, Emirates ID, or email..."></asp:TextBox>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Department</label>
@@ -482,10 +490,6 @@
                         <div class="form-group">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary"
                                 OnClick="btnSearch_Click" />
-                            <asp:Button ID="btnClear" runat="server" Text="Clear" CssClass="btn btn-secondary"
-                                OnClick="btnClear_Click" Style="margin-left: 10px;" />
-                            <asp:Button ID="btnTestSearch" runat="server" Text="Test Search" CssClass="btn btn-info"
-                                OnClick="btnTestSearch_Click" Style="margin-left: 10px;" />
                         </div>
                     </div>
                     <div class="search-loading" id="searchLoadingDiv">
@@ -507,40 +511,53 @@
                         <p>Loading employees...</p>
                     </div>
 
-                    <div class="gridview-container">
-                        <asp:GridView ID="gvEmployees" runat="server" CssClass="gridview" AutoGenerateColumns="false"
-                            OnRowCommand="gvEmployees_RowCommand" OnRowDataBound="gvEmployees_RowDataBound"
-                            AllowPaging="true" PageSize="10" OnPageIndexChanging="gvEmployees_PageIndexChanging">
-                            <Columns>
-                                <asp:BoundField DataField="EmployeeID" HeaderText="ID" />
-                                <asp:BoundField DataField="FullName" HeaderText="Full Name" />
-                                <asp:BoundField DataField="EmiratesID" HeaderText="Emirates ID" />
-                                <asp:BoundField DataField="WorkEmail" HeaderText="Work Email" />
-                                <asp:BoundField DataField="DepartmentName" HeaderText="Department" />
-                                <asp:BoundField DataField="PositionTitle" HeaderText="Position" />
-                                <asp:BoundField DataField="EmploymentStatus" HeaderText="Status" />
-                                <asp:BoundField DataField="HireDate" HeaderText="Hire Date"
-                                    DataFormatString="{0:MM/dd/yyyy}" />
-                                <asp:TemplateField HeaderText="Actions">
-                                    <ItemTemplate>
-                                        <div class="action-buttons">
-                                            <asp:LinkButton ID="btnView" runat="server" CommandName="ViewEmployee"
-                                                CommandArgument='<%# Eval("EmployeeID") %>'
-                                                CssClass="btn btn-primary btn-sm" Text="View" />
-                                            <asp:LinkButton ID="btnEdit" runat="server" CommandName="EditEmployee"
-                                                CommandArgument='<%# Eval("EmployeeID") %>'
-                                                CssClass="btn btn-warning btn-sm" Text="Edit" />
-                                            <asp:LinkButton ID="btnDelete" runat="server" CommandName="DeleteEmployee"
-                                                CommandArgument='<%# Eval("EmployeeID") %>'
-                                                CssClass="btn btn-danger btn-sm" Text="Delete"
-                                                OnClientClick="return confirm('Are you sure you want to delete this employee?');" />
-                                        </div>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                            <PagerStyle CssClass="pager" />
-                        </asp:GridView>
-                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="gridview-container">
+                                <asp:GridView ID="gvEmployees" runat="server" CssClass="gridview"
+                                    AutoGenerateColumns="false" OnRowCommand="gvEmployees_RowCommand"
+                                    OnRowDataBound="gvEmployees_RowDataBound" AllowPaging="true" PageSize="10"
+                                    OnPageIndexChanging="gvEmployees_PageIndexChanging">
+                                    <Columns>
+                                        <asp:BoundField DataField="EmployeeID" HeaderText="ID" />
+                                        <asp:BoundField DataField="FullName" HeaderText="Full Name" />
+                                        <asp:BoundField DataField="EmiratesID" HeaderText="Emirates ID" />
+                                        <asp:BoundField DataField="WorkEmail" HeaderText="Work Email" />
+                                        <asp:BoundField DataField="DepartmentName" HeaderText="Department" />
+                                        <asp:BoundField DataField="PositionTitle" HeaderText="Position" />
+                                        <asp:BoundField DataField="EmploymentStatus" HeaderText="Status" />
+                                        <asp:BoundField DataField="HireDate" HeaderText="Hire Date"
+                                            DataFormatString="{0:MM/dd/yyyy}" />
+                                        <asp:TemplateField HeaderText="Actions">
+                                            <ItemTemplate>
+                                                <div class="action-buttons">
+                                                    <asp:LinkButton ID="btnView" runat="server"
+                                                        CommandName="ViewEmployee"
+                                                        CommandArgument='<%# Eval("EmployeeID") %>'
+                                                        CssClass="btn btn-primary btn-sm" Text="View" />
+                                                    <asp:LinkButton ID="btnEdit" runat="server"
+                                                        CommandName="EditEmployee"
+                                                        CommandArgument='<%# Eval("EmployeeID") %>'
+                                                        CssClass="btn btn-warning btn-sm" Text="Edit" />
+                                                    <asp:LinkButton ID="btnDelete" runat="server"
+                                                        CommandName="DeleteEmployee"
+                                                        CommandArgument='<%# Eval("EmployeeID") %>'
+                                                        CssClass="btn btn-danger btn-sm" Text="Delete"
+                                                        OnClientClick="return confirm('Are you sure you want to delete this employee?');" />
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <PagerStyle CssClass="pager" />
+                                </asp:GridView>
+                            </div>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="btnSearch" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlDepartment" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlStatus" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
                 </div>
             </div>
 
@@ -715,7 +732,7 @@
         </form>
 
         <script type="text/javascript">
-            // var searchTimeout; // Temporarily disabled
+            var searchTimeout;
 
             function showModal() {
                 document.getElementById('employeeModal').style.display = 'block';
@@ -733,22 +750,23 @@
                 document.getElementById('loadingDiv').style.display = 'none';
             }
 
-            // Debounced search function (temporarily disabled)
-            // function debounceSearch() {
-            //     console.log('debounceSearch called');
-            //     clearTimeout(searchTimeout);
-            //     searchTimeout = setTimeout(function () {
-            //         console.log('debounceSearch timeout triggered');
-            //         // Show search loading
-            //         var searchLoading = document.getElementById('searchLoadingDiv');
-            //         if (searchLoading) {
-            //             searchLoading.style.display = 'block';
-            //         }
+            // Debounced search function
+            function debounceSearch() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(function () {
+                    // Show search loading
+                    var searchLoading = document.getElementById('searchLoadingDiv');
+                    if (searchLoading) {
+                        searchLoading.style.display = 'block';
+                    }
 
-            //         // Trigger the search using hidden button
-            //         // Note: btnHiddenSearch control was removed - search functionality handled by server-side events
-            //     }, 500); // 500ms delay
-            // }
+                    // Trigger the search button click
+                    var searchButton = document.getElementById('<%= btnSearch.ClientID %>');
+                    if (searchButton) {
+                        searchButton.click();
+                    }
+                }, 500); // 500ms delay
+            }
 
             function hideSearchLoading() {
                 var searchLoading = document.getElementById('searchLoadingDiv');
@@ -773,17 +791,13 @@
                 });
             }, 5000);
 
-            // Temporarily disabled JavaScript debouncing to test AutoPostBack
-            // document.addEventListener('DOMContentLoaded', function () {
-            //     console.log('DOMContentLoaded event fired');
-            //     var searchBox = document.getElementById('<%= txtSearch.ClientID %>');
-            //     if (searchBox) {
-            //         console.log('Search box found, adding input listener');
-            //         searchBox.addEventListener('input', debounceSearch);
-            //     } else {
-            //         console.log('Search box not found');
-            //     }
-            // });
+            // Enable JavaScript debouncing for search
+            document.addEventListener('DOMContentLoaded', function () {
+                var searchBox = document.getElementById('<%= txtSearch.ClientID %>');
+                if (searchBox) {
+                    searchBox.addEventListener('input', debounceSearch);
+                }
+            });
         </script>
     </body>
 
