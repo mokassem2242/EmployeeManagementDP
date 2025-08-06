@@ -498,6 +498,10 @@
                 <asp:Button ID="btnRegister" runat="server" Text="Create Account" CssClass="btn-register"
                     OnClick="btnRegister_Click" />
 
+                <!-- Test button to verify event handling -->
+                <asp:Button ID="btnTest" runat="server" Text="Test Button" OnClick="btnTest_Click"
+                    style="margin-top: 10px; background: red; color: white;" />
+
                 <div class="loading" id="loadingDiv">
                     <div class="spinner"></div>
                     <span style="margin-left: 10px; color: #007a3e;">Creating account...</span>
@@ -564,9 +568,12 @@
             }
 
             // Show loading when form is submitted
+            // Temporarily disabled for debugging
+            /*
             document.getElementById('form1').addEventListener('submit', function () {
                 showLoading();
             });
+            */
         </script>
     </body>
 

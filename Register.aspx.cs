@@ -19,8 +19,52 @@ namespace EmployeService
             }
         }
 
+        protected void btnTest_Click(object sender, EventArgs e)
+        {
+            ShowSuccess("Test button clicked! Event handling is working.");
+        }
+
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void ClearForm()
+        {
+            txtFirstName.Text = "";
+            txtLastName.Text = "";
+            txtUsername.Text = "";
+            txtEmail.Text = "";
+            txtPassword.Text = "";
+            txtConfirmPassword.Text = "";
+        }
+
+        private void ShowError(string message)
+        {
+            errorMessage.InnerText = message;
+            errorMessage.Style["display"] = "block";
+        }
+
+        private void ShowSuccess(string message)
+        {
+            successMessage.InnerText = message;
+            successMessage.Style["display"] = "block";
+        }
+
         protected void btnRegister_Click(object sender, EventArgs e)
         {
+            // Debug: Show that the event was triggered
+            ShowSuccess("Button click event triggered!");
+            
             try
             {
                 // Hide any existing messages
@@ -98,10 +142,10 @@ namespace EmployeService
                 if (userId > 0)
                 {
                     ShowSuccess("Account created successfully! You can now login with your credentials.");
-                    
+
                     // Clear form
                     ClearForm();
-                    
+
                     // Redirect to login page after 3 seconds
                     Response.AddHeader("Refresh", "3;url=Login.aspx");
                 }
@@ -125,45 +169,18 @@ namespace EmployeService
                 {
                     ShowError("An error occurred during registration. Please try again.");
                 }
-                
+
                 // For debugging purposes, you can uncomment the line below
                 // ShowError("Error: " + ex.Message);
             }
+
+
         }
 
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
 
-        private void ClearForm()
-        {
-            txtFirstName.Text = "";
-            txtLastName.Text = "";
-            txtUsername.Text = "";
-            txtEmail.Text = "";
-            txtPassword.Text = "";
-            txtConfirmPassword.Text = "";
-        }
 
-        private void ShowError(string message)
-        {
-            errorMessage.InnerText = message;
-            errorMessage.Style["display"] = "block";
-        }
 
-        private void ShowSuccess(string message)
-        {
-            successMessage.InnerText = message;
-            successMessage.Style["display"] = "block";
-        }
+
+
     }
-} 
+}

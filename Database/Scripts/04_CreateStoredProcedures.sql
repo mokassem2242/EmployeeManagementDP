@@ -290,6 +290,108 @@ BEGIN
 END
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_User_Insert]') AND type in (N'P', N'PC'))
+BEGIN
+    DROP PROCEDURE sp_User_Insert
+END
+GO
+
+CREATE PROCEDURE sp_User_Insert
+    @Username NVARCHAR(50),
+    @PasswordHash NVARCHAR(255),
+    @Email NVARCHAR(100),
+    @RoleID INT,
+    @IsActive BIT
+AS
+BEGIN
+    -- Check if username already exists
+    IF EXISTS (SELECT 1 FROM Users WHERE Username = @Username)
+    BEGIN
+        RAISERROR('Username already exists', 16, 1)
+        RETURN
+    END
+    
+    -- Check if email already exists (if email is provided)
+    IF @Email IS NOT NULL AND EXISTS (SELECT 1 FROM Users WHERE Email = @Email)
+    BEGIN
+        RAISERROR('Email address already exists', 16, 1)
+        RETURN
+    END
+    
+    INSERT INTO Users (Username, PasswordHash, Email, RoleID, IsActive)
+    VALUES (@Username, @PasswordHash, @Email, @RoleID, @IsActive)
+    
+    SELECT SCOPE_IDENTITY() as UserID
+END
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_User_Update]') AND type in (N'P', N'PC'))
+BEGIN
+    DROP PROCEDURE sp_User_Update
+END
+GO
+
+CREATE PROCEDURE sp_User_Update
+    @UserID INT,
+    @Username NVARCHAR(50),
+    @PasswordHash NVARCHAR(255),
+    @Email NVARCHAR(100),
+    @RoleID INT,
+    @IsActive BIT
+AS
+BEGIN
+    -- Check if username already exists for other users
+    IF EXISTS (SELECT 1 FROM Users WHERE Username = @Username AND UserID != @UserID)
+    BEGIN
+        RAISERROR('Username already exists', 16, 1)
+        RETURN
+    END
+    
+    -- Check if email already exists for other users (if email is provided)
+    IF @Email IS NOT NULL AND EXISTS (SELECT 1 FROM Users WHERE Email = @Email AND UserID != @UserID)
+    BEGIN
+        RAISERROR('Email address already exists', 16, 1)
+        RETURN
+    END
+    
+    UPDATE Users SET
+        Username = @Username,
+        PasswordHash = @PasswordHash,
+        Email = @Email,
+        RoleID = @RoleID,
+        IsActive = @IsActive
+    WHERE UserID = @UserID
+END
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_User_UpdateLastLogin]') AND type in (N'P', N'PC'))
+BEGIN
+    DROP PROCEDURE sp_User_UpdateLastLogin
+END
+GO
+
+CREATE PROCEDURE sp_User_UpdateLastLogin
+    @UserID INT
+AS
+BEGIN
+    UPDATE Users SET LastLoginDate = GETDATE()
+    WHERE UserID = @UserID
+END
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_Role_GetAll]') AND type in (N'P', N'PC'))
+BEGIN
+    DROP PROCEDURE sp_Role_GetAll
+END
+GO
+
+CREATE PROCEDURE sp_Role_GetAll
+AS
+BEGIN
+    SELECT * FROM Roles ORDER BY RoleName
+END
+GO
+
 -- Audit log stored procedure
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_AuditLog_Insert]') AND type in (N'P', N'PC'))
 BEGIN
