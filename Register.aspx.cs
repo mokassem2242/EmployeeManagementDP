@@ -16,32 +16,6 @@ namespace EmployeService
                 // Hide any existing messages
                 errorMessage.Style["display"] = "none";
                 successMessage.Style["display"] = "none";
-
-                // Load roles
-                LoadRoles();
-            }
-        }
-
-        private void LoadRoles()
-        {
-            try
-            {
-                var authService = new AuthService();
-                DataTable rolesData = authService.GetAllRoles();
-
-                ddlRole.Items.Clear();
-                ddlRole.Items.Add(new ListItem("Select a role", ""));
-
-                foreach (DataRow row in rolesData.Rows)
-                {
-                    int roleId = Convert.ToInt32(row["RoleID"]);
-                    string roleName = row["RoleName"].ToString();
-                    ddlRole.Items.Add(new ListItem(roleName, roleId.ToString()));
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowError("Error loading roles. Please try again.");
             }
         }
 
@@ -90,12 +64,6 @@ namespace EmployeService
                     return;
                 }
 
-                if (string.IsNullOrEmpty(ddlRole.SelectedValue))
-                {
-                    ShowError("Please select a role.");
-                    return;
-                }
-
                 // Validate email format
                 if (!IsValidEmail(txtEmail.Text.Trim()))
                 {
@@ -119,7 +87,7 @@ namespace EmployeService
                 }
 
                 // Create user
-                int roleId = Convert.ToInt32(ddlRole.SelectedValue);
+                int roleId = 3; // Default role ID for new registrations
                 int userId = authService.CreateUser(
                     txtUsername.Text.Trim(),
                     txtPassword.Text,
@@ -184,7 +152,6 @@ namespace EmployeService
             txtEmail.Text = "";
             txtPassword.Text = "";
             txtConfirmPassword.Text = "";
-            ddlRole.SelectedIndex = 0;
         }
 
         private void ShowError(string message)
