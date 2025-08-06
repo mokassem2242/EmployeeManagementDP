@@ -18,6 +18,8 @@ namespace EmployeService {
         
         protected global::System.Web.UI.UpdatePanel UpdatePanel2;
         
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
+        
         protected global::System.Web.UI.WebControls.LinkButton btnLogout;
         
         protected global::System.Web.UI.WebControls.Panel alertPanel;

@@ -148,6 +148,11 @@ namespace EmployeService
                 
                 // Show modal
                 ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "showModal();", true);
+                
+                // Update the UpdatePanels
+                UpdatePanel1.Update();
+                UpdatePanel2.Update();
+                UpdatePanel3.Update();
             }
             catch (Exception ex)
             {
@@ -269,6 +274,11 @@ namespace EmployeService
                 // Close modal and reload data
                 ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "closeModal();", true);
                 LoadEmployees();
+                
+                // Update the UpdatePanels
+                UpdatePanel1.Update();
+                UpdatePanel2.Update();
+                UpdatePanel3.Update();
             }
             catch (Exception ex)
             {
@@ -279,6 +289,11 @@ namespace EmployeService
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "closeModal();", true);
+            
+            // Update the UpdatePanels
+            UpdatePanel1.Update();
+            UpdatePanel2.Update();
+            UpdatePanel3.Update();
         }
 
         protected void gvEmployees_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -326,6 +341,11 @@ namespace EmployeService
                     btnCancel.Text = "Close";
                     
                     ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "showModal();", true);
+                    
+                    // Update the UpdatePanels
+                    UpdatePanel1.Update();
+                    UpdatePanel2.Update();
+                    UpdatePanel3.Update();
                 }
             }
             catch (Exception ex)
@@ -355,6 +375,11 @@ namespace EmployeService
                     btnCancel.Text = "Cancel";
                     
                     ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "showModal();", true);
+                    
+                    // Update the UpdatePanels
+                    UpdatePanel1.Update();
+                    UpdatePanel2.Update();
+                    UpdatePanel3.Update();
                 }
             }
             catch (Exception ex)
@@ -372,6 +397,10 @@ namespace EmployeService
                 {
                     ShowAlert("Employee deleted successfully!", "success");
                     LoadEmployees();
+                    
+                    // Update the UpdatePanels
+                    UpdatePanel1.Update();
+                    UpdatePanel2.Update();
                 }
                 else
                 {

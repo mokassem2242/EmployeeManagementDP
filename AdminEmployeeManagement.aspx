@@ -457,6 +457,9 @@
                     </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="btnSearch" EventName="Click" />
+                        <asp:AsyncPostBackTrigger ControlID="btnAddNew" EventName="Click" />
+                        <asp:AsyncPostBackTrigger ControlID="btnSave" EventName="Click" />
+                        <asp:AsyncPostBackTrigger ControlID="btnCancel" EventName="Click" />
                         <asp:AsyncPostBackTrigger ControlID="ddlDepartment" EventName="SelectedIndexChanged" />
                         <asp:AsyncPostBackTrigger ControlID="ddlStatus" EventName="SelectedIndexChanged" />
                     </Triggers>
@@ -554,6 +557,9 @@
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="btnSearch" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="btnAddNew" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="btnSave" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="btnCancel" EventName="Click" />
                             <asp:AsyncPostBackTrigger ControlID="ddlDepartment" EventName="SelectedIndexChanged" />
                             <asp:AsyncPostBackTrigger ControlID="ddlStatus" EventName="SelectedIndexChanged" />
                         </Triggers>
@@ -562,173 +568,193 @@
             </div>
 
             <!-- Employee Modal -->
-            <div id="employeeModal" class="modal" runat="server">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="modalTitle" runat="server">Add New Employee</h3>
-                        <button type="button" class="close" onclick="closeModal()">&times;</button>
+            <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div id="employeeModal" class="modal" runat="server">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="modalTitle" runat="server">Add New Employee</h3>
+                                <button type="button" class="close" onclick="closeModal()">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <asp:HiddenField ID="hdnEmployeeId" runat="server" />
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Emirates ID *</label>
+                                        <asp:TextBox ID="txtEmiratesId" runat="server" CssClass="form-control"
+                                            required="required"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Passport Number</label>
+                                        <asp:TextBox ID="txtPassportNumber" runat="server" CssClass="form-control">
+                                        </asp:TextBox>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">First Name *</label>
+                                        <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control"
+                                            required="required"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Last Name *</label>
+                                        <asp:TextBox ID="txtLastName" runat="server" CssClass="form-control"
+                                            required="required"></asp:TextBox>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Nationality</label>
+                                        <asp:TextBox ID="txtNationality" runat="server" CssClass="form-control">
+                                        </asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Date of Birth</label>
+                                        <asp:TextBox ID="txtDateOfBirth" runat="server" CssClass="form-control"
+                                            TextMode="Date">
+                                        </asp:TextBox>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Gender</label>
+                                        <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-control">
+                                            <asp:ListItem Text="Select Gender" Value="" />
+                                            <asp:ListItem Text="Male" Value="Male" />
+                                            <asp:ListItem Text="Female" Value="Female" />
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Hire Date</label>
+                                        <asp:TextBox ID="txtHireDate" runat="server" CssClass="form-control"
+                                            TextMode="Date">
+                                        </asp:TextBox>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Work Email</label>
+                                        <asp:TextBox ID="txtWorkEmail" runat="server" CssClass="form-control"
+                                            TextMode="Email">
+                                        </asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Personal Email</label>
+                                        <asp:TextBox ID="txtPersonalEmail" runat="server" CssClass="form-control"
+                                            TextMode="Email"></asp:TextBox>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Work Phone</label>
+                                        <asp:TextBox ID="txtWorkPhone" runat="server" CssClass="form-control">
+                                        </asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Personal Phone</label>
+                                        <asp:TextBox ID="txtPersonalPhone" runat="server" CssClass="form-control">
+                                        </asp:TextBox>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Emirates</label>
+                                        <asp:TextBox ID="txtEmirates" runat="server" CssClass="form-control">
+                                        </asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">City</label>
+                                        <asp:TextBox ID="txtCity" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">District</label>
+                                        <asp:TextBox ID="txtDistrict" runat="server" CssClass="form-control">
+                                        </asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Contract Type</label>
+                                        <asp:DropDownList ID="ddlContractType" runat="server" CssClass="form-control">
+                                            <asp:ListItem Text="Select Contract Type" Value="" />
+                                            <asp:ListItem Text="Full Time" Value="Full Time" />
+                                            <asp:ListItem Text="Part Time" Value="Part Time" />
+                                            <asp:ListItem Text="Contract" Value="Contract" />
+                                            <asp:ListItem Text="Temporary" Value="Temporary" />
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Employment Status</label>
+                                        <asp:DropDownList ID="ddlEmploymentStatus" runat="server"
+                                            CssClass="form-control">
+                                            <asp:ListItem Text="Active" Value="Active" />
+                                            <asp:ListItem Text="Inactive" Value="Inactive" />
+                                            <asp:ListItem Text="Terminated" Value="Terminated" />
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Salary Grade</label>
+                                        <asp:TextBox ID="txtSalaryGrade" runat="server" CssClass="form-control">
+                                        </asp:TextBox>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Department *</label>
+                                        <asp:DropDownList ID="ddlDepartmentModal" runat="server" CssClass="form-control"
+                                            required="required">
+                                            <asp:ListItem Text="Select Department" Value="" />
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Position *</label>
+                                        <asp:DropDownList ID="ddlPositionModal" runat="server" CssClass="form-control"
+                                            required="required">
+                                            <asp:ListItem Text="Select Position" Value="" />
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Manager</label>
+                                        <asp:DropDownList ID="ddlManager" runat="server" CssClass="form-control">
+                                            <asp:ListItem Text="Select Manager" Value="" />
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+
+                                <div class="form-row" style="margin-top: 30px;">
+                                    <div class="form-group"
+                                        style="display: flex; gap: 15px; justify-content: flex-end;">
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel"
+                                            CssClass="btn btn-secondary" OnClick="btnCancel_Click" />
+                                        <asp:Button ID="btnSave" runat="server" Text="Save Employee"
+                                            CssClass="btn btn-success" OnClick="btnSave_Click" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <asp:HiddenField ID="hdnEmployeeId" runat="server" />
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Emirates ID *</label>
-                                <asp:TextBox ID="txtEmiratesId" runat="server" CssClass="form-control"
-                                    required="required"></asp:TextBox>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Passport Number</label>
-                                <asp:TextBox ID="txtPassportNumber" runat="server" CssClass="form-control">
-                                </asp:TextBox>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">First Name *</label>
-                                <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control"
-                                    required="required"></asp:TextBox>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Last Name *</label>
-                                <asp:TextBox ID="txtLastName" runat="server" CssClass="form-control"
-                                    required="required"></asp:TextBox>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Nationality</label>
-                                <asp:TextBox ID="txtNationality" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Date of Birth</label>
-                                <asp:TextBox ID="txtDateOfBirth" runat="server" CssClass="form-control" TextMode="Date">
-                                </asp:TextBox>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Gender</label>
-                                <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-control">
-                                    <asp:ListItem Text="Select Gender" Value="" />
-                                    <asp:ListItem Text="Male" Value="Male" />
-                                    <asp:ListItem Text="Female" Value="Female" />
-                                </asp:DropDownList>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Hire Date</label>
-                                <asp:TextBox ID="txtHireDate" runat="server" CssClass="form-control" TextMode="Date">
-                                </asp:TextBox>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Work Email</label>
-                                <asp:TextBox ID="txtWorkEmail" runat="server" CssClass="form-control" TextMode="Email">
-                                </asp:TextBox>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Personal Email</label>
-                                <asp:TextBox ID="txtPersonalEmail" runat="server" CssClass="form-control"
-                                    TextMode="Email"></asp:TextBox>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Work Phone</label>
-                                <asp:TextBox ID="txtWorkPhone" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Personal Phone</label>
-                                <asp:TextBox ID="txtPersonalPhone" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Emirates</label>
-                                <asp:TextBox ID="txtEmirates" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">City</label>
-                                <asp:TextBox ID="txtCity" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">District</label>
-                                <asp:TextBox ID="txtDistrict" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Contract Type</label>
-                                <asp:DropDownList ID="ddlContractType" runat="server" CssClass="form-control">
-                                    <asp:ListItem Text="Select Contract Type" Value="" />
-                                    <asp:ListItem Text="Full Time" Value="Full Time" />
-                                    <asp:ListItem Text="Part Time" Value="Part Time" />
-                                    <asp:ListItem Text="Contract" Value="Contract" />
-                                    <asp:ListItem Text="Temporary" Value="Temporary" />
-                                </asp:DropDownList>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Employment Status</label>
-                                <asp:DropDownList ID="ddlEmploymentStatus" runat="server" CssClass="form-control">
-                                    <asp:ListItem Text="Active" Value="Active" />
-                                    <asp:ListItem Text="Inactive" Value="Inactive" />
-                                    <asp:ListItem Text="Terminated" Value="Terminated" />
-                                </asp:DropDownList>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Salary Grade</label>
-                                <asp:TextBox ID="txtSalaryGrade" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Department *</label>
-                                <asp:DropDownList ID="ddlDepartmentModal" runat="server" CssClass="form-control"
-                                    required="required">
-                                    <asp:ListItem Text="Select Department" Value="" />
-                                </asp:DropDownList>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Position *</label>
-                                <asp:DropDownList ID="ddlPositionModal" runat="server" CssClass="form-control"
-                                    required="required">
-                                    <asp:ListItem Text="Select Position" Value="" />
-                                </asp:DropDownList>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Manager</label>
-                                <asp:DropDownList ID="ddlManager" runat="server" CssClass="form-control">
-                                    <asp:ListItem Text="Select Manager" Value="" />
-                                </asp:DropDownList>
-                            </div>
-                        </div>
-
-                        <div class="form-row" style="margin-top: 30px;">
-                            <div class="form-group" style="display: flex; gap: 15px; justify-content: flex-end;">
-                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary"
-                                    OnClick="btnCancel_Click" />
-                                <asp:Button ID="btnSave" runat="server" Text="Save Employee" CssClass="btn btn-success"
-                                    OnClick="btnSave_Click" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="btnAddNew" EventName="Click" />
+                    <asp:AsyncPostBackTrigger ControlID="btnSave" EventName="Click" />
+                    <asp:AsyncPostBackTrigger ControlID="btnCancel" EventName="Click" />
+                </Triggers>
+            </asp:UpdatePanel>
         </form>
 
         <script type="text/javascript">
