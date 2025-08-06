@@ -13,7 +13,7 @@ namespace EmployeService.DataAccess
 
         public EmployeeDAL()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["UAE_EmployeeDB"]?.ConnectionString;
+            _connectionString = ConfigurationManager.ConnectionStrings["UAE_EmployeeDB"] != null ? ConfigurationManager.ConnectionStrings["UAE_EmployeeDB"].ConnectionString : null;
             if (string.IsNullOrEmpty(_connectionString))
                 throw new Exception("Connection string 'UAE_EmployeeDB' not found in Web.config");
         }

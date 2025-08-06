@@ -8,18 +8,7 @@ namespace EmployeService
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup
-            try
-            {
-                System.Diagnostics.Debug.WriteLine("Application starting - initializing database...");
-                // Initialize database on application startup
-                DatabaseInitializer.InitializeDatabase();
-                System.Diagnostics.Debug.WriteLine("Application startup completed successfully.");
-            }
-            catch (Exception ex)
-            {
-                // Log the error but don't crash the application
-                System.Diagnostics.Debug.WriteLine($"Application startup error: {ex.Message}");
-            }
+            System.Diagnostics.Debug.WriteLine("Application starting...");
         }
 
         void Application_End(object sender, EventArgs e)

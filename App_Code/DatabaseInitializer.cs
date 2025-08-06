@@ -20,7 +20,7 @@ namespace EmployeService
                 try
                 {
                     // Get connection string
-                    string connectionString = ConfigurationManager.ConnectionStrings["UAE_EmployeeDB"]?.ConnectionString;
+                    string connectionString = ConfigurationManager.ConnectionStrings["UAE_EmployeeDB"] != null ? ConfigurationManager.ConnectionStrings["UAE_EmployeeDB"].ConnectionString : null;
                     if (string.IsNullOrEmpty(connectionString))
                     {
                         throw new Exception("Connection string 'UAE_EmployeeDB' not found in Web.config");
@@ -46,7 +46,7 @@ namespace EmployeService
                         }
                         catch (Exception ex)
                         {
-                            System.Diagnostics.Debug.WriteLine($"Setup script failed, trying individual scripts: {ex.Message}");
+                            System.Diagnostics.Debug.WriteLine(string.Format("Setup script failed, trying individual scripts: {0}", ex.Message));
                         }
                     }
 
@@ -63,7 +63,7 @@ namespace EmployeService
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Database initialization failed: {ex.Message}");
+                    System.Diagnostics.Debug.WriteLine(string.Format("Database initialization failed: {0}", ex.Message));
                     
                     // Final fallback: Create database structure inline
                     try
@@ -75,7 +75,7 @@ namespace EmployeService
                     }
                     catch (Exception inlineEx)
                     {
-                        System.Diagnostics.Debug.WriteLine($"Inline database creation failed: {inlineEx.Message}");
+                        System.Diagnostics.Debug.WriteLine(string.Format("Inline database creation failed: {0}", inlineEx.Message));
                         // Don't throw the exception to prevent application startup failure
                     }
                 }
@@ -101,7 +101,7 @@ namespace EmployeService
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error checking if database exists: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine(string.Format("Error checking if database exists: {0}", ex.Message));
                 return false;
             }
         }
@@ -124,7 +124,7 @@ namespace EmployeService
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error creating database: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine(string.Format("Error creating database: {0}", ex.Message));
                 throw;
             }
         }
@@ -345,7 +345,7 @@ namespace EmployeService
         {
             if (!File.Exists(scriptPath))
             {
-                throw new FileNotFoundException($"Script file not found: {scriptPath}");
+                throw new FileNotFoundException(string.Format("Script file not found: {0}", scriptPath));
             }
 
             string scriptContent = File.ReadAllText(scriptPath);
@@ -371,8 +371,8 @@ namespace EmployeService
                             catch (Exception ex)
                             {
                                 // Log the error but continue with other commands
-                                System.Diagnostics.Debug.WriteLine($"Error executing command: {ex.Message}");
-                                System.Diagnostics.Debug.WriteLine($"Command: {trimmedCommand}");
+                                System.Diagnostics.Debug.WriteLine(string.Format("Error executing command: {0}", ex.Message));
+                                System.Diagnostics.Debug.WriteLine(string.Format("Command: {0}", trimmedCommand));
                             }
                         }
                     }
@@ -384,7 +384,7 @@ namespace EmployeService
         {
             if (!File.Exists(scriptPath))
             {
-                throw new FileNotFoundException($"Script file not found: {scriptPath}");
+                throw new FileNotFoundException(string.Format("Script file not found: {0}", scriptPath));
             }
 
             string scriptContent = File.ReadAllText(scriptPath);
@@ -412,8 +412,8 @@ namespace EmployeService
                             catch (Exception ex)
                             {
                                 // Log the error but continue with other commands
-                                System.Diagnostics.Debug.WriteLine($"Error executing command: {ex.Message}");
-                                System.Diagnostics.Debug.WriteLine($"Command: {trimmedCommand}");
+                                System.Diagnostics.Debug.WriteLine(string.Format("Error executing command: {0}", ex.Message));
+                                System.Diagnostics.Debug.WriteLine(string.Format("Command: {0}", trimmedCommand));
                             }
                         }
                     }
@@ -425,7 +425,7 @@ namespace EmployeService
         {
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["UAE_EmployeeDB"]?.ConnectionString;
+                string connectionString = ConfigurationManager.ConnectionStrings["UAE_EmployeeDB"] != null ? ConfigurationManager.ConnectionStrings["UAE_EmployeeDB"].ConnectionString : null;
                 if (string.IsNullOrEmpty(connectionString))
                     return false;
 

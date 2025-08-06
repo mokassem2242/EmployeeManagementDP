@@ -128,7 +128,7 @@ namespace EmployeService.Services
                     UserID = userId,
                     Username = userData.Rows[0]["Username"].ToString(),
                     PasswordHash = hashedPassword,
-                    Email = userData.Rows[0]["Email"]?.ToString(),
+                    Email = userData.Rows[0]["Email"] != null ? userData.Rows[0]["Email"].ToString() : null,
                     RoleID = Convert.ToInt32(userData.Rows[0]["RoleID"]),
                     IsActive = Convert.ToBoolean(userData.Rows[0]["IsActive"])
                 };
