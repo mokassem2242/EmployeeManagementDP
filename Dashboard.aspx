@@ -16,15 +16,15 @@
 
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background: linear-gradient(135deg, #F9F7ED 0%, #F2ECCF 100%);
+                background: #F5F5F5;
                 min-height: 100vh;
             }
 
             .header {
                 background: white;
-                box-shadow: 0 2px 10px rgba(182, 138, 53, 0.1);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
                 padding: 20px 0;
-                border-bottom: 4px solid #B68A35;
+                border-bottom: 2px solid #2E8B57;
             }
 
             .header-content {
@@ -37,7 +37,7 @@
             }
 
             .logo h1 {
-                color: #B68A35;
+                color: #2E8B57;
                 font-size: 24px;
                 font-weight: 600;
             }
@@ -53,34 +53,32 @@
             }
 
             .user-name {
-                color: #6C4527;
+                color: #333;
                 font-weight: 600;
                 font-size: 16px;
             }
 
             .user-role {
-                color: #92722A;
+                color: #666;
                 font-size: 14px;
             }
 
             .btn-logout {
-                background: linear-gradient(135deg, #B68A35 0%, #CBA344 100%);
+                background: #2E8B57;
                 color: white;
                 border: none;
                 padding: 10px 20px;
-                border-radius: 8px;
+                border-radius: 4px;
                 font-size: 14px;
-                font-weight: 600;
+                font-weight: 500;
                 cursor: pointer;
-                transition: all 0.3s ease;
+                transition: background-color 0.2s ease;
                 text-decoration: none;
                 display: inline-block;
             }
 
             .btn-logout:hover {
-                background: linear-gradient(135deg, #92722A 0%, #B68A35 100%);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(182, 138, 53, 0.3);
+                background: #1F5F3F;
             }
 
             .main-content {
@@ -91,94 +89,81 @@
 
             .welcome-card {
                 background: white;
-                border-radius: 20px;
-                box-shadow: 0 20px 40px rgba(182, 138, 53, 0.1);
-                padding: 40px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                padding: 30px;
                 text-align: center;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .welcome-card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 4px;
-                background: linear-gradient(90deg, #B68A35, #CBA344, #D7BC6D);
+                border-left: 4px solid #2E8B57;
             }
 
             .welcome-title {
-                color: #B68A35;
-                font-size: 32px;
+                color: #2E8B57;
+                font-size: 28px;
                 font-weight: 600;
                 margin-bottom: 10px;
             }
 
             .welcome-subtitle {
-                color: #92722A;
-                font-size: 18px;
-                margin-bottom: 30px;
+                color: #666;
+                font-size: 16px;
+                margin-bottom: 20px;
             }
 
             .login-time {
-                background: #F9F7ED;
-                border: 1px solid #E6D7A2;
-                border-radius: 10px;
-                padding: 15px;
-                margin-top: 20px;
-                color: #6C4527;
+                background: #F8F9FA;
+                border: 1px solid #E9ECEF;
+                border-radius: 4px;
+                padding: 12px;
+                margin-top: 15px;
+                color: #495057;
                 font-size: 14px;
             }
 
             .features-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 30px;
-                margin-top: 40px;
+                gap: 20px;
+                margin-top: 30px;
             }
 
             .feature-card {
                 background: white;
-                border-radius: 15px;
-                padding: 30px;
-                box-shadow: 0 10px 30px rgba(182, 138, 53, 0.1);
-                transition: all 0.3s ease;
-                border: 2px solid transparent;
+                border-radius: 6px;
+                padding: 25px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                transition: box-shadow 0.2s ease;
+                border: 1px solid #E9ECEF;
             }
 
             .feature-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 20px 40px rgba(182, 138, 53, 0.2);
-                border-color: #E6D7A2;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             }
 
             .feature-icon {
-                width: 60px;
-                height: 60px;
-                background: linear-gradient(135deg, #B68A35 0%, #CBA344 100%);
-                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                background: #2E8B57;
+                border-radius: 6px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin: 0 auto 20px;
+                margin: 0 auto 15px;
                 color: white;
-                font-size: 24px;
-                font-weight: bold;
+                font-size: 20px;
+                font-weight: normal;
             }
 
             .feature-title {
-                color: #B68A35;
-                font-size: 20px;
+                color: #2E8B57;
+                font-size: 18px;
                 font-weight: 600;
-                margin-bottom: 10px;
+                margin-bottom: 8px;
             }
 
             .feature-description {
-                color: #6C4527;
+                color: #495057;
                 font-size: 14px;
-                line-height: 1.6;
+                line-height: 1.5;
             }
 
             @media (max-width: 768px) {
@@ -201,7 +186,7 @@
                 }
 
                 .welcome-subtitle {
-                    font-size: 16px;
+                    font-size: 14px;
                 }
 
                 .features-grid {

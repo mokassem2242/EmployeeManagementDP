@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\dashboard.aspx.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|c:\\users\\mohammad kasem\\source\\repos\\employeservice\\dashboard.aspx.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|solutionrelative:dashboard.aspx.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -23,7 +23,7 @@
       "RelativeMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|solutionrelative:register.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|c:\\users\\mohammad kasem\\source\\repos\\employeservice\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|solutionrelative:login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
@@ -31,7 +31,7 @@
       "RelativeMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|solutionrelative:login.aspx.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|c:\\users\\mohammad kasem\\source\\repos\\employeservice\\employeeview.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\employeeview.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E8757DD-766A-47A7-9496-9970DB96C125}|EmployeService.csproj|solutionrelative:employeeview.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -90,7 +90,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -99,62 +99,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Login.aspx",
-              "DocumentMoniker": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\Login.aspx",
-              "RelativeDocumentMoniker": "Login.aspx",
-              "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\Login.aspx*",
-              "RelativeToolTip": "Login.aspx*",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-08-06T15:35:56.229Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AdminEmployeeManagement.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\AdminEmployeeManagement.aspx.cs",
-              "RelativeDocumentMoniker": "AdminEmployeeManagement.aspx.cs",
-              "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\AdminEmployeeManagement.aspx.cs",
-              "RelativeToolTip": "AdminEmployeeManagement.aspx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIIAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T14:27:42.209Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "AdminEmployeeManagement.aspx.designer.cs",
-              "DocumentMoniker": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\AdminEmployeeManagement.aspx.designer.cs",
-              "RelativeDocumentMoniker": "AdminEmployeeManagement.aspx.designer.cs",
-              "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\AdminEmployeeManagement.aspx.designer.cs",
-              "RelativeToolTip": "AdminEmployeeManagement.aspx.designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T14:36:18.313Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "EmployeeView.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\EmployeeView.aspx.cs",
-              "RelativeDocumentMoniker": "EmployeeView.aspx.cs",
-              "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\EmployeeView.aspx.cs",
-              "RelativeToolTip": "EmployeeView.aspx.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAiwE0AAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T14:21:46.965Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -166,19 +110,6 @@
               "RelativeToolTip": "Logout.aspx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
               "WhenOpened": "2025-08-05T20:34:07.673Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Dashboard.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\Dashboard.aspx.cs",
-              "RelativeDocumentMoniker": "Dashboard.aspx.cs",
-              "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\Dashboard.aspx.cs",
-              "RelativeToolTip": "Dashboard.aspx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T14:48:28.439Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -194,6 +125,70 @@
               "EditorCaption": ""
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Login.aspx",
+              "DocumentMoniker": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\Login.aspx",
+              "RelativeDocumentMoniker": "Login.aspx",
+              "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\Login.aspx*",
+              "RelativeToolTip": "Login.aspx*",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-08-06T15:35:56.229Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AdminEmployeeManagement.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\AdminEmployeeManagement.aspx.cs",
+              "RelativeDocumentMoniker": "AdminEmployeeManagement.aspx.cs",
+              "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\AdminEmployeeManagement.aspx.cs",
+              "RelativeToolTip": "AdminEmployeeManagement.aspx.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIIAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T14:27:42.209Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AdminEmployeeManagement.aspx.designer.cs",
+              "DocumentMoniker": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\AdminEmployeeManagement.aspx.designer.cs",
+              "RelativeDocumentMoniker": "AdminEmployeeManagement.aspx.designer.cs",
+              "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\AdminEmployeeManagement.aspx.designer.cs",
+              "RelativeToolTip": "AdminEmployeeManagement.aspx.designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T14:36:18.313Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EmployeeView.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\EmployeeView.aspx.cs",
+              "RelativeDocumentMoniker": "EmployeeView.aspx.cs",
+              "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\EmployeeView.aspx.cs",
+              "RelativeToolTip": "EmployeeView.aspx.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAiwE0AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T14:21:46.965Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Dashboard.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\Dashboard.aspx.cs",
+              "RelativeDocumentMoniker": "Dashboard.aspx.cs",
+              "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\Dashboard.aspx.cs",
+              "RelativeToolTip": "Dashboard.aspx.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T14:48:28.439Z"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "AdminEmployeeManagement.aspx",
@@ -203,8 +198,7 @@
               "RelativeToolTip": "AdminEmployeeManagement.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-08-06T14:22:31.515Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T14:22:31.515Z"
             },
             {
               "$type": "Document",
@@ -215,8 +209,7 @@
               "ToolTip": "C:\\Users\\Mohammad KASEM\\source\\repos\\EmployeService\\EmployeeService.asmx.cs [Design]",
               "RelativeToolTip": "EmployeeService.asmx.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T14:40:22.529Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-08-06T14:40:22.529Z"
             },
             {
               "$type": "Document",
@@ -228,8 +221,7 @@
               "RelativeToolTip": "Dashboard.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-08-06T14:39:47.226Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T14:39:47.226Z"
             },
             {
               "$type": "Document",
@@ -241,8 +233,7 @@
               "RelativeToolTip": "Login.aspx.designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T08:54:24.684Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T08:54:24.684Z"
             },
             {
               "$type": "Document",
@@ -254,8 +245,7 @@
               "RelativeToolTip": "Login.aspx.cs",
               "ViewState": "AgIAAEsAAAAAAAAAAIAwwFYAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T07:16:02.264Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T07:16:02.264Z"
             },
             {
               "$type": "Document",
@@ -267,8 +257,7 @@
               "RelativeToolTip": "AuthService.asmx.cs",
               "ViewState": "AgIAAEUAAAAAAAAAAAAUwGIAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-05T19:15:44.944Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-05T19:15:44.944Z"
             },
             {
               "$type": "Document",
@@ -280,8 +269,7 @@
               "RelativeToolTip": "Register.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-08-06T08:09:19.656Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T08:09:19.656Z"
             },
             {
               "$type": "Document",
@@ -293,8 +281,7 @@
               "RelativeToolTip": "Register.aspx.cs",
               "ViewState": "AgIAADMAAAAAAAAAAAAAwAwAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T06:53:24.38Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T06:53:24.38Z"
             },
             {
               "$type": "Document",
@@ -318,8 +305,7 @@
               "RelativeToolTip": "EmployeeService.asmx.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAFMAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-05T19:37:24.575Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-05T19:37:24.575Z"
             },
             {
               "$type": "Document",
