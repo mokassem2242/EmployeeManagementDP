@@ -17,15 +17,15 @@
 
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background: linear-gradient(135deg, #F9F7ED 0%, #F2ECCF 100%);
+                background: #f8f9fa;
                 min-height: 100vh;
             }
 
             .header {
                 background: white;
-                box-shadow: 0 2px 10px rgba(182, 138, 53, 0.1);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
                 padding: 20px 0;
-                border-bottom: 4px solid #B68A35;
+                border-bottom: 2px solid #4CAF50;
             }
 
             .header-content {
@@ -38,7 +38,7 @@
             }
 
             .logo h1 {
-                color: #B68A35;
+                color: #4CAF50;
                 font-size: 24px;
                 font-weight: 600;
             }
@@ -50,7 +50,7 @@
             }
 
             .nav-link {
-                color: #6C4527;
+                color: #2E7D32;
                 text-decoration: none;
                 font-weight: 500;
                 padding: 8px 16px;
@@ -59,33 +59,32 @@
             }
 
             .nav-link:hover {
-                background: #F2ECCF;
-                color: #B68A35;
+                background: #E8F5E8;
+                color: #4CAF50;
             }
 
             .nav-link.active {
-                background: #B68A35;
+                background: #4CAF50;
                 color: white;
             }
 
             .btn-logout {
-                background: linear-gradient(135deg, #B68A35 0%, #CBA344 100%);
+                background: #4CAF50;
                 color: white;
                 border: none;
                 padding: 10px 20px;
-                border-radius: 8px;
+                border-radius: 4px;
                 font-size: 14px;
-                font-weight: 600;
+                font-weight: 500;
                 cursor: pointer;
-                transition: all 0.3s ease;
+                transition: all 0.2s ease;
                 text-decoration: none;
                 display: inline-block;
             }
 
             .btn-logout:hover {
-                background: linear-gradient(135deg, #92722A 0%, #B68A35 100%);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(182, 138, 53, 0.3);
+                background: #388E3C;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
 
             .main-content {
@@ -95,7 +94,7 @@
             }
 
             .page-title {
-                color: #B68A35;
+                color: #4CAF50;
                 font-size: 28px;
                 font-weight: 600;
                 margin-bottom: 30px;
@@ -104,10 +103,11 @@
 
             .search-section {
                 background: white;
-                border-radius: 15px;
+                border-radius: 6px;
                 padding: 25px;
-                box-shadow: 0 10px 30px rgba(182, 138, 53, 0.1);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
                 margin-bottom: 30px;
+                border: 1px solid #e9ecef;
             }
 
             .search-row {
@@ -123,101 +123,97 @@
             }
 
             .form-label {
-                color: #6C4527;
+                color: #2E7D32;
                 font-weight: 600;
                 margin-bottom: 8px;
                 font-size: 14px;
             }
 
             .form-control {
-                padding: 12px 16px;
-                border: 2px solid #E6D7A2;
-                border-radius: 8px;
+                padding: 10px 12px;
+                border: 1px solid #ced4da;
+                border-radius: 4px;
                 font-size: 14px;
-                transition: all 0.3s ease;
+                transition: border-color 0.2s ease;
                 background: white;
             }
 
             .form-control:focus {
                 outline: none;
-                border-color: #B68A35;
-                box-shadow: 0 0 0 3px rgba(182, 138, 53, 0.1);
+                border-color: #4CAF50;
+                box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
             }
 
             .btn {
-                padding: 12px 24px;
+                padding: 10px 16px;
                 border: none;
-                border-radius: 8px;
+                border-radius: 4px;
                 font-size: 14px;
-                font-weight: 600;
+                font-weight: 500;
                 cursor: pointer;
-                transition: all 0.3s ease;
+                transition: all 0.2s ease;
                 text-decoration: none;
                 display: inline-block;
                 text-align: center;
             }
 
             .btn-primary {
-                background: linear-gradient(135deg, #B68A35 0%, #CBA344 100%);
+                background: #4CAF50;
                 color: white;
             }
 
             .btn-primary:hover {
-                background: linear-gradient(135deg, #92722A 0%, #B68A35 100%);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(182, 138, 53, 0.3);
+                background: #388E3C;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
 
             .btn-success {
-                background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                background: #28a745;
                 color: white;
             }
 
             .btn-success:hover {
-                background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+                background: #218838;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
 
             .btn-warning {
-                background: linear-gradient(135deg, #ffc107 0%, #ffca2c 100%);
+                background: #ffc107;
                 color: #212529;
             }
 
             .btn-warning:hover {
-                background: linear-gradient(135deg, #e0a800 0%, #e6b800 100%);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+                background: #e0a800;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
 
             .btn-danger {
-                background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+                background: #dc3545;
                 color: white;
             }
 
             .btn-danger:hover {
-                background: linear-gradient(135deg, #c82333 0%, #c0392b 100%);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+                background: #c82333;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
 
             .btn-secondary {
-                background: linear-gradient(135deg, #6c757d 0%, #868e96 100%);
+                background: #6c757d;
                 color: white;
             }
 
             .btn-secondary:hover {
-                background: linear-gradient(135deg, #5a6268 0%, #6c757d 100%);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+                background: #5a6268;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
 
             .employees-section {
                 background: white;
-                border-radius: 15px;
+                border-radius: 6px;
                 padding: 25px;
-                box-shadow: 0 10px 30px rgba(182, 138, 53, 0.1);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
                 margin-bottom: 30px;
+                border: 1px solid #e9ecef;
             }
 
             .section-header {
@@ -228,7 +224,7 @@
             }
 
             .section-title {
-                color: #B68A35;
+                color: #4CAF50;
                 font-size: 20px;
                 font-weight: 600;
             }
@@ -244,23 +240,23 @@
             }
 
             .gridview th {
-                background: linear-gradient(135deg, #B68A35 0%, #CBA344 100%);
+                background: #4CAF50;
                 color: white;
-                padding: 15px 12px;
+                padding: 12px 10px;
                 text-align: left;
-                font-weight: 600;
+                font-weight: 500;
                 font-size: 14px;
             }
 
             .gridview td {
-                padding: 12px;
-                border-bottom: 1px solid #E6D7A2;
+                padding: 10px;
+                border-bottom: 1px solid #dee2e6;
                 font-size: 14px;
-                color: #6C4527;
+                color: #495057;
             }
 
             .gridview tr:hover {
-                background: #F9F7ED;
+                background: #f8f9fa;
             }
 
             .action-buttons {
@@ -289,19 +285,20 @@
                 background: white;
                 margin: 5% auto;
                 padding: 0;
-                border-radius: 15px;
+                border-radius: 6px;
                 width: 90%;
                 max-width: 800px;
                 max-height: 90vh;
                 overflow-y: auto;
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border: 1px solid #e9ecef;
             }
 
             .modal-header {
-                background: linear-gradient(135deg, #B68A35 0%, #CBA344 100%);
+                background: #4CAF50;
                 color: white;
                 padding: 20px 25px;
-                border-radius: 15px 15px 0 0;
+                border-radius: 6px 6px 0 0;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -369,15 +366,23 @@
                 display: none;
                 text-align: center;
                 padding: 20px;
-                color: #B68A35;
+                color: #4CAF50;
+            }
+
+            .search-loading {
+                display: none;
+                text-align: center;
+                padding: 10px;
+                color: #4CAF50;
+                font-size: 12px;
             }
 
             .spinner {
-                border: 3px solid #E6D7A2;
-                border-top: 3px solid #B68A35;
+                border: 2px solid #e9ecef;
+                border-top: 2px solid #4CAF50;
                 border-radius: 50%;
-                width: 30px;
-                height: 30px;
+                width: 24px;
+                height: 24px;
                 animation: spin 1s linear infinite;
                 margin: 0 auto 10px;
             }
@@ -454,18 +459,20 @@
                         <div class="form-group">
                             <label class="form-label">Search Employee</label>
                             <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control"
-                                placeholder="Search by name, Emirates ID, or email..."
+                                placeholder="Search by name, Emirates ID, or email..." AutoPostBack="true"
                                 OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Department</label>
-                            <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control">
+                            <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control"
+                                AutoPostBack="true" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged">
                                 <asp:ListItem Text="All Departments" Value="" />
                             </asp:DropDownList>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Status</label>
-                            <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control">
+                            <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" AutoPostBack="true"
+                                OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged">
                                 <asp:ListItem Text="All Status" Value="" />
                                 <asp:ListItem Text="Active" Value="Active" />
                                 <asp:ListItem Text="Inactive" Value="Inactive" />
@@ -475,7 +482,15 @@
                         <div class="form-group">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary"
                                 OnClick="btnSearch_Click" />
+                            <asp:Button ID="btnClear" runat="server" Text="Clear" CssClass="btn btn-secondary"
+                                OnClick="btnClear_Click" Style="margin-left: 10px;" />
+                            <asp:Button ID="btnTestSearch" runat="server" Text="Test Search" CssClass="btn btn-info"
+                                OnClick="btnTestSearch_Click" Style="margin-left: 10px;" />
                         </div>
+                    </div>
+                    <div class="search-loading" id="searchLoadingDiv">
+                        <div class="spinner" style="width: 16px; height: 16px; border-width: 1px;"></div>
+                        <span>Searching...</span>
                     </div>
                 </div>
 
@@ -700,6 +715,8 @@
         </form>
 
         <script type="text/javascript">
+            // var searchTimeout; // Temporarily disabled
+
             function showModal() {
                 document.getElementById('employeeModal').style.display = 'block';
             }
@@ -714,6 +731,36 @@
 
             function hideLoading() {
                 document.getElementById('loadingDiv').style.display = 'none';
+            }
+
+            // Debounced search function (temporarily disabled)
+            // function debounceSearch() {
+            //     console.log('debounceSearch called');
+            //     clearTimeout(searchTimeout);
+            //     searchTimeout = setTimeout(function () {
+            //         console.log('debounceSearch timeout triggered');
+            //         // Show search loading
+            //         var searchLoading = document.getElementById('searchLoadingDiv');
+            //         if (searchLoading) {
+            //             searchLoading.style.display = 'block';
+            //         }
+
+            //         // Trigger the search using hidden button
+            //         var hiddenButton = document.getElementById('<%= btnHiddenSearch.ClientID %>');
+            //         if (hiddenButton) {
+            //             console.log('Clicking hidden button');
+            //             hiddenButton.click();
+            //         } else {
+            //             console.log('Hidden button not found');
+            //         }
+            //     }, 500); // 500ms delay
+            // }
+
+            function hideSearchLoading() {
+                var searchLoading = document.getElementById('searchLoadingDiv');
+                if (searchLoading) {
+                    searchLoading.style.display = 'none';
+                }
             }
 
             // Close modal when clicking outside
@@ -731,6 +778,18 @@
                     alert.style.display = 'none';
                 });
             }, 5000);
+
+            // Temporarily disabled JavaScript debouncing to test AutoPostBack
+            // document.addEventListener('DOMContentLoaded', function () {
+            //     console.log('DOMContentLoaded event fired');
+            //     var searchBox = document.getElementById('<%= txtSearch.ClientID %>');
+            //     if (searchBox) {
+            //         console.log('Search box found, adding input listener');
+            //         searchBox.addEventListener('input', debounceSearch);
+            //     } else {
+            //         console.log('Search box not found');
+            //     }
+            // });
         </script>
     </body>
 

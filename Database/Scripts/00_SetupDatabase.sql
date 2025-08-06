@@ -415,7 +415,9 @@ GO
 CREATE PROCEDURE sp_Employee_GetAll
 AS
 BEGIN
-    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName,
+    SELECT e.*, d.DepartmentName, p.PositionTitle, 
+           e.FirstName + ' ' + e.LastName as FullName,
+           m.FirstName + ' ' + m.LastName as ManagerName,
            u.Username, r.RoleName
     FROM Employees e
     LEFT JOIN Departments d ON e.DepartmentID = d.DepartmentID
@@ -437,7 +439,9 @@ CREATE PROCEDURE sp_Employee_GetById
     @EmployeeID INT
 AS
 BEGIN
-    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName,
+    SELECT e.*, d.DepartmentName, p.PositionTitle, 
+           e.FirstName + ' ' + e.LastName as FullName,
+           m.FirstName + ' ' + m.LastName as ManagerName,
            u.Username, r.RoleName
     FROM Employees e
     LEFT JOIN Departments d ON e.DepartmentID = d.DepartmentID
@@ -460,7 +464,9 @@ CREATE PROCEDURE sp_Employee_GetByUserId
     @UserID INT
 AS
 BEGIN
-    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName,
+    SELECT e.*, d.DepartmentName, p.PositionTitle, 
+           e.FirstName + ' ' + e.LastName as FullName,
+           m.FirstName + ' ' + m.LastName as ManagerName,
            u.Username, r.RoleName
     FROM Employees e
     LEFT JOIN Departments d ON e.DepartmentID = d.DepartmentID
@@ -611,7 +617,9 @@ CREATE PROCEDURE sp_Employee_Search
     @EmploymentStatus NVARCHAR(20) = NULL
 AS
 BEGIN
-    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName,
+    SELECT e.*, d.DepartmentName, p.PositionTitle, 
+           e.FirstName + ' ' + e.LastName as FullName,
+           m.FirstName + ' ' + m.LastName as ManagerName,
            u.Username, r.RoleName
     FROM Employees e
     LEFT JOIN Departments d ON e.DepartmentID = d.DepartmentID
@@ -623,7 +631,7 @@ BEGIN
            e.FirstName LIKE '%' + @SearchTerm + '%' OR 
            e.LastName LIKE '%' + @SearchTerm + '%' OR 
            e.EmiratesID LIKE '%' + @SearchTerm + '%' OR
-           e.FullName LIKE '%' + @SearchTerm + '%')
+           e.FirstName + ' ' + e.LastName LIKE '%' + @SearchTerm + '%')
     AND (@DepartmentID IS NULL OR e.DepartmentID = @DepartmentID)
     AND (@EmploymentStatus IS NULL OR e.EmploymentStatus = @EmploymentStatus)
     ORDER BY e.EmployeeID DESC

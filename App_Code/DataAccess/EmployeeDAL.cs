@@ -170,22 +170,22 @@ namespace EmployeService.DataAccess
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                using (SqlCommand command = new SqlCommand("sp_Employee_Search", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    
-                    command.Parameters.AddWithValue("@SearchTerm", (object)searchTerm ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@DepartmentID", (object)departmentId ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@EmploymentStatus", (object)employmentStatus ?? DBNull.Value);
-                    
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-                    DataTable dataTable = new DataTable("Employees");
-                    adapter.Fill(dataTable);
-                    
-                    return dataTable;
+                    using (SqlCommand command = new SqlCommand("sp_Employee_Search", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        
+                        command.Parameters.AddWithValue("@SearchTerm", (object)searchTerm ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DepartmentID", (object)departmentId ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@EmploymentStatus", (object)employmentStatus ?? DBNull.Value);
+                        
+                        SqlDataAdapter adapter = new SqlDataAdapter(command);
+                        DataTable dataTable = new DataTable("Employees");
+                        adapter.Fill(dataTable);
+                        
+                        return dataTable;
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Get employees by department
