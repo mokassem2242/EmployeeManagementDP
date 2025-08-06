@@ -28,7 +28,7 @@
                 border-radius: 20px;
                 box-shadow: 0 20px 40px rgba(0, 122, 62, 0.1);
                 padding: 40px;
-                width: 100%;
+                width: 500px;
                 max-width: 600px;
                 position: relative;
                 overflow: hidden;

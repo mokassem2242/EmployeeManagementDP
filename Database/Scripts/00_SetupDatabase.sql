@@ -18,28 +18,7 @@ USE UAE_EmployeeDB
 GO
 
 -- Step 3: Create Tables
--- Create Users table (for authentication)
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Users]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE Users (
-        UserID INT IDENTITY(1,1) PRIMARY KEY,
-        Username NVARCHAR(50) UNIQUE NOT NULL,
-        PasswordHash NVARCHAR(255) NOT NULL,
-        Email NVARCHAR(100),
-        RoleID INT,
-        IsActive BIT DEFAULT 1,
-        LastLoginDate DATETIME,
-        CreatedDate DATETIME DEFAULT GETDATE()
-    )
-    PRINT 'Table Users created successfully.'
-END
-ELSE
-BEGIN
-    PRINT 'Table Users already exists.'
-END
-GO
-
--- Create Roles table
+-- Create Roles table first (needed for foreign key)
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Roles]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Roles (
@@ -52,6 +31,47 @@ END
 ELSE
 BEGIN
     PRINT 'Table Roles already exists.'
+END
+GO
+
+-- Create Users table (for authentication) with proper foreign key
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Users]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE Users (
+        UserID INT IDENTITY(1,1) PRIMARY KEY,
+        Username NVARCHAR(50) UNIQUE NOT NULL,
+        PasswordHash NVARCHAR(255) NOT NULL,
+        Email NVARCHAR(100),
+        RoleID INT NOT NULL,
+        IsActive BIT DEFAULT 1,
+        LastLoginDate DATETIME,
+        CreatedDate DATETIME DEFAULT GETDATE(),
+        FOREIGN KEY (RoleID) REFERENCES Roles(RoleID)
+    )
+    PRINT 'Table Users created successfully.'
+END
+ELSE
+BEGIN
+    PRINT 'Table Users already exists.'
+    -- Add foreign key if it doesn't exist
+    IF NOT EXISTS (
+        SELECT 1 FROM sys.foreign_keys 
+        WHERE parent_object_id = OBJECT_ID('Users') 
+          AND referenced_object_id = OBJECT_ID('Roles')
+    )
+    BEGIN
+        -- Add RoleID column if it doesn't exist
+        IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Users') AND name = 'RoleID')
+        BEGIN
+            ALTER TABLE Users ADD RoleID INT
+        END
+        
+        -- Add foreign key constraint
+        ALTER TABLE Users
+        ADD CONSTRAINT FK_Users_Roles
+        FOREIGN KEY (RoleID) REFERENCES Roles(RoleID)
+        PRINT 'Foreign key constraint added to Users table.'
+    END
 END
 GO
 
@@ -91,7 +111,7 @@ BEGIN
 END
 GO
 
--- Create Employees table (main table)
+-- Create Employees table (main table) with optional UserID foreign key
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Employees]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Employees (
@@ -118,6 +138,7 @@ BEGIN
         PositionID INT,
         ManagerID INT,
         SalaryGrade NVARCHAR(20),
+        UserID INT NULL, -- Optional foreign key to Users table
         CreatedDate DATETIME DEFAULT GETDATE(),
         ModifiedDate DATETIME,
         CreatedBy INT,
@@ -125,6 +146,7 @@ BEGIN
         FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID),
         FOREIGN KEY (PositionID) REFERENCES Positions(PositionID),
         FOREIGN KEY (ManagerID) REFERENCES Employees(EmployeeID),
+        FOREIGN KEY (UserID) REFERENCES Users(UserID), -- Connect to Users table (optional)
         FOREIGN KEY (CreatedBy) REFERENCES Users(UserID),
         FOREIGN KEY (ModifiedBy) REFERENCES Users(UserID)
     )
@@ -133,6 +155,26 @@ END
 ELSE
 BEGIN
     PRINT 'Table Employees already exists.'
+    -- Add UserID column if it doesn't exist
+    IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Employees') AND name = 'UserID')
+    BEGIN
+        ALTER TABLE Employees ADD UserID INT NULL
+        PRINT 'UserID column added to Employees table.'
+    END
+    
+    -- Add foreign key constraint if it doesn't exist
+    IF NOT EXISTS (
+        SELECT 1 FROM sys.foreign_keys 
+        WHERE parent_object_id = OBJECT_ID('Employees') 
+          AND referenced_object_id = OBJECT_ID('Users')
+          AND name = 'FK_Employees_Users'
+    )
+    BEGIN
+        ALTER TABLE Employees
+        ADD CONSTRAINT FK_Employees_Users
+        FOREIGN KEY (UserID) REFERENCES Users(UserID)
+        PRINT 'Foreign key constraint added to Employees table.'
+    END
 END
 GO
 
@@ -159,19 +201,14 @@ END
 GO
 
 -- Step 4: Insert Sample Data
--- Insert sample roles (only if not exists)
-IF NOT EXISTS (SELECT * FROM Roles WHERE RoleName = 'Admin')
-BEGIN
-    INSERT INTO Roles (RoleName, Description) VALUES 
-    ('Admin', 'System Administrator'),
-    ('Manager', 'Department Manager'),
-    ('User', 'Regular User')
-    PRINT 'Sample roles inserted successfully.'
-END
-ELSE
-BEGIN
-    PRINT 'Sample roles already exist.'
-END
+-- Insert only the two required roles
+DELETE FROM Roles
+GO
+
+INSERT INTO Roles (RoleName, Description) VALUES 
+('Admin', 'System Administrator - can manage employees (CRUD)'),
+('Employee', 'Employee - can view own details')
+PRINT 'Roles (Admin and Employee) inserted successfully.'
 GO
 
 -- Insert sample departments (only if not exists)
@@ -212,16 +249,18 @@ BEGIN
 END
 GO
 
--- Insert sample user (only if not exists)
+-- Insert sample admin user (only if not exists)
 IF NOT EXISTS (SELECT * FROM Users WHERE Username = 'admin')
 BEGIN
     INSERT INTO Users (Username, PasswordHash, Email, RoleID) VALUES 
-    ('admin', 'hashed_password_here', 'admin@uae.gov.ae', 1)
+    ('admin', 'admin123', 'admin@uae.gov.ae', 1)
     PRINT 'Sample admin user created successfully.'
 END
 ELSE
 BEGIN
     PRINT 'Sample admin user already exists.'
+    -- Update existing admin user to have Admin role
+    UPDATE Users SET RoleID = 1 WHERE Username = 'admin'
 END
 GO
 
@@ -366,7 +405,7 @@ BEGIN
 END
 GO
 
--- Employee stored procedures
+-- Employee stored procedures (updated to include UserID)
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_Employee_GetAll]') AND type in (N'P', N'PC'))
 BEGIN
     DROP PROCEDURE sp_Employee_GetAll
@@ -376,11 +415,14 @@ GO
 CREATE PROCEDURE sp_Employee_GetAll
 AS
 BEGIN
-    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName
+    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName,
+           u.Username, r.RoleName
     FROM Employees e
     LEFT JOIN Departments d ON e.DepartmentID = d.DepartmentID
     LEFT JOIN Positions p ON e.PositionID = p.PositionID
     LEFT JOIN Employees m ON e.ManagerID = m.EmployeeID
+    LEFT JOIN Users u ON e.UserID = u.UserID
+    LEFT JOIN Roles r ON u.RoleID = r.RoleID
     ORDER BY e.EmployeeID DESC
 END
 GO
@@ -395,12 +437,38 @@ CREATE PROCEDURE sp_Employee_GetById
     @EmployeeID INT
 AS
 BEGIN
-    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName
+    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName,
+           u.Username, r.RoleName
     FROM Employees e
     LEFT JOIN Departments d ON e.DepartmentID = d.DepartmentID
     LEFT JOIN Positions p ON e.PositionID = p.PositionID
     LEFT JOIN Employees m ON e.ManagerID = m.EmployeeID
+    LEFT JOIN Users u ON e.UserID = u.UserID
+    LEFT JOIN Roles r ON u.RoleID = r.RoleID
     WHERE e.EmployeeID = @EmployeeID
+END
+GO
+
+-- Get employee by UserID (for employees to view their own details)
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_Employee_GetByUserId]') AND type in (N'P', N'PC'))
+BEGIN
+    DROP PROCEDURE sp_Employee_GetByUserId
+END
+GO
+
+CREATE PROCEDURE sp_Employee_GetByUserId
+    @UserID INT
+AS
+BEGIN
+    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName,
+           u.Username, r.RoleName
+    FROM Employees e
+    LEFT JOIN Departments d ON e.DepartmentID = d.DepartmentID
+    LEFT JOIN Positions p ON e.PositionID = p.PositionID
+    LEFT JOIN Employees m ON e.ManagerID = m.EmployeeID
+    LEFT JOIN Users u ON e.UserID = u.UserID
+    LEFT JOIN Roles r ON u.RoleID = r.RoleID
+    WHERE e.UserID = @UserID
 END
 GO
 
@@ -432,6 +500,7 @@ CREATE PROCEDURE sp_Employee_Insert
     @PositionID INT,
     @ManagerID INT,
     @SalaryGrade NVARCHAR(20),
+    @UserID INT = NULL, -- Optional: can be NULL
     @CreatedBy INT
 AS
 BEGIN
@@ -440,14 +509,14 @@ BEGIN
         DateOfBirth, Gender, WorkEmail, PersonalEmail, WorkPhone,
         PersonalPhone, Emirates, City, District, HireDate,
         ContractType, EmploymentStatus, DepartmentID, PositionID,
-        ManagerID, SalaryGrade, CreatedBy
+        ManagerID, SalaryGrade, UserID, CreatedBy
     )
     VALUES (
         @EmiratesID, @PassportNumber, @FirstName, @LastName, @Nationality,
         @DateOfBirth, @Gender, @WorkEmail, @PersonalEmail, @WorkPhone,
         @PersonalPhone, @Emirates, @City, @District, @HireDate,
         @ContractType, @EmploymentStatus, @DepartmentID, @PositionID,
-        @ManagerID, @SalaryGrade, @CreatedBy
+        @ManagerID, @SalaryGrade, @UserID, @CreatedBy
     )
     
     SELECT SCOPE_IDENTITY() as EmployeeID
@@ -483,6 +552,7 @@ CREATE PROCEDURE sp_Employee_Update
     @PositionID INT,
     @ManagerID INT,
     @SalaryGrade NVARCHAR(20),
+    @UserID INT = NULL, -- Optional: can be NULL
     @ModifiedBy INT
 AS
 BEGIN
@@ -508,6 +578,7 @@ BEGIN
         PositionID = @PositionID,
         ManagerID = @ManagerID,
         SalaryGrade = @SalaryGrade,
+        UserID = @UserID,
         ModifiedDate = GETDATE(),
         ModifiedBy = @ModifiedBy
     WHERE EmployeeID = @EmployeeID
@@ -540,11 +611,14 @@ CREATE PROCEDURE sp_Employee_Search
     @EmploymentStatus NVARCHAR(20) = NULL
 AS
 BEGIN
-    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName
+    SELECT e.*, d.DepartmentName, p.PositionTitle, m.FirstName + ' ' + m.LastName as ManagerName,
+           u.Username, r.RoleName
     FROM Employees e
     LEFT JOIN Departments d ON e.DepartmentID = d.DepartmentID
     LEFT JOIN Positions p ON e.PositionID = p.PositionID
     LEFT JOIN Employees m ON e.ManagerID = m.EmployeeID
+    LEFT JOIN Users u ON e.UserID = u.UserID
+    LEFT JOIN Roles r ON u.RoleID = r.RoleID
     WHERE (@SearchTerm IS NULL OR 
            e.FirstName LIKE '%' + @SearchTerm + '%' OR 
            e.LastName LIKE '%' + @SearchTerm + '%' OR 
@@ -634,5 +708,7 @@ END
 GO
 
 PRINT 'Database setup completed successfully!'
+PRINT 'Roles: Admin (can manage employees) and Employee (can view own details)'
+PRINT 'Users and Employees tables are now connected via UserID foreign key'
 PRINT 'You can now run the application.'
 GO 
