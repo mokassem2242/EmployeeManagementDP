@@ -746,13 +746,7 @@
             //         }
 
             //         // Trigger the search using hidden button
-            //         var hiddenButton = document.getElementById('<%= btnHiddenSearch.ClientID %>');
-            //         if (hiddenButton) {
-            //             console.log('Clicking hidden button');
-            //             hiddenButton.click();
-            //         } else {
-            //             console.log('Hidden button not found');
-            //         }
+            //         // Note: btnHiddenSearch control was removed - search functionality handled by server-side events
             //     }, 500); // 500ms delay
             // }
 

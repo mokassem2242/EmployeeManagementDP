@@ -529,5 +529,106 @@ namespace EmployeService
             // Auto-search functionality can be implemented here
             // For now, we'll leave it empty as the search is handled by the Search button
         }
+
+        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Filter employees by selected department
+                string selectedDepartment = ddlDepartment.SelectedValue;
+                DataTable employees;
+                
+                if (string.IsNullOrEmpty(selectedDepartment))
+                {
+                    employees = _employeeDAL.GetAllEmployees();
+                }
+                else
+                {
+                    employees = _employeeDAL.GetEmployeesByDepartment(int.Parse(selectedDepartment));
+                }
+                
+                gvEmployees.DataSource = employees;
+                gvEmployees.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ShowAlert("Error filtering by department: " + ex.Message, "danger");
+            }
+        }
+
+        protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Filter employees by selected status
+                string selectedStatus = ddlStatus.SelectedValue;
+                DataTable employees;
+                
+                if (string.IsNullOrEmpty(selectedStatus))
+                {
+                    employees = _employeeDAL.GetAllEmployees();
+                }
+                else
+                {
+                    employees = _employeeDAL.GetEmployeesByStatus(selectedStatus);
+                }
+                
+                gvEmployees.DataSource = employees;
+                gvEmployees.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ShowAlert("Error filtering by status: " + ex.Message, "danger");
+            }
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Clear search filters
+                txtSearch.Text = "";
+                ddlDepartment.SelectedIndex = 0;
+                ddlStatus.SelectedIndex = 0;
+                
+                // Reload all employees
+                LoadEmployees();
+                
+                ShowAlert("Search filters cleared successfully.", "success");
+            }
+            catch (Exception ex)
+            {
+                ShowAlert("Error clearing filters: " + ex.Message, "danger");
+            }
+        }
+
+        protected void btnTestSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Test search functionality
+                string searchTerm = txtSearch.Text.Trim();
+                string departmentFilter = ddlDepartment.SelectedValue;
+                string statusFilter = ddlStatus.SelectedValue;
+                
+                // Convert department filter to int? if not empty
+                int? departmentId = null;
+                if (!string.IsNullOrEmpty(departmentFilter))
+                {
+                    departmentId = int.Parse(departmentFilter);
+                }
+                
+                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, departmentId, statusFilter);
+                
+                gvEmployees.DataSource = employees;
+                gvEmployees.DataBind();
+                
+                ShowAlert($"Test search completed. Found {employees.Rows.Count} employees.", "info");
+            }
+            catch (Exception ex)
+            {
+                ShowAlert("Error during test search: " + ex.Message, "danger");
+            }
+        }
     }
 } 
