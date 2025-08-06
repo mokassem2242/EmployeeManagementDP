@@ -3,7 +3,8 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using EmployeService.Services;
+using EmployeService.DataAccess;
+using EmployeService.Helpers;
 
 namespace EmployeService
 {
@@ -11,6 +12,9 @@ namespace EmployeService
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Debug: Check if page load is being called
+            Response.Write("<script>console.log('Page_Load called');</script>");
+            
             if (!IsPostBack)
             {
                 // Clear any existing session
@@ -19,11 +23,20 @@ namespace EmployeService
                 // Hide any existing messages
                 errorMessage.Style["display"] = "none";
                 successMessage.Style["display"] = "none";
+                
+                Response.Write("<script>console.log('Initial page load');</script>");
+            }
+            else
+            {
+                Response.Write("<script>console.log('Postback detected');</script>");
             }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+            // Debug: Write to response to see if this method is called
+            Response.Write("<script>alert('btnLogin_Click method was called!');</script>");
+            
             try
             {
                 // Hide any existing messages
@@ -43,11 +56,14 @@ namespace EmployeService
                     return;
                 }
 
-                // Create AuthService instance
-                var authService = new AuthService();
+                // Create UserDAL instance
+                var userDAL = new UserDAL();
+
+                // Hash the password before authentication
+                string hashedPassword = PasswordHelper.HashPassword(txtPassword.Text);
 
                 // Authenticate user
-                DataTable userData = authService.AuthenticateUser(txtUsername.Text.Trim(), txtPassword.Text);
+                DataTable userData = userDAL.AuthenticateUser(txtUsername.Text.Trim(), hashedPassword);
 
                 if (userData != null && userData.Rows.Count > 0)
                 {
@@ -68,7 +84,7 @@ namespace EmployeService
                     }
 
                     // Update last login date
-                    authService.UpdateLastLoginDate(userId);
+                    //userDAL.UpdateLastLoginDate(userId);
 
                     // Store user information in session
                     Session["UserID"] = userId;

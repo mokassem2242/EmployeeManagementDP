@@ -7,6 +7,7 @@
         <title>Login - UAE Government Employee Management</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Force designer regeneration -->
         <style>
             * {
                 margin: 0;
@@ -385,7 +386,8 @@
                         placeholder="Enter your password" required="required"></asp:TextBox>
                 </div>
 
-                <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="btn-login" OnClick="btnLogin_Click" />
+                <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="btn-login" OnClick="btnLogin_Click"
+                    UseSubmitBehavior="false" />
 
                 <div class="loading" id="loadingDiv">
                     <div class="spinner"></div>
@@ -397,23 +399,6 @@
                 </div>
             </div>
         </form>
-
-        <script type="text/javascript">
-            function showLoading() {
-                document.getElementById('loadingDiv').style.display = 'block';
-                document.getElementById('btnLogin').disabled = true;
-            }
-
-            function hideLoading() {
-                document.getElementById('loadingDiv').style.display = 'none';
-                document.getElementById('btnLogin').disabled = false;
-            }
-
-            // Show loading when form is submitted
-            document.getElementById('form1').addEventListener('submit', function () {
-                showLoading();
-            });
-        </script>
     </body>
 
     </html>
