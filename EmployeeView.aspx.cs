@@ -54,18 +54,18 @@ namespace EmployeService
             try
             {
                 // Set basic information
-                employeeName.InnerText = $"{row["FirstName"]} {row["LastName"]}";
+                employeeName.InnerText = string.Format("{0} {1}", row["FirstName"], row["LastName"]);
                 employeePosition.InnerText = row["PositionTitle"].ToString();
                 employeeDepartment.InnerText = row["DepartmentName"].ToString();
 
                 // Personal Information
                 employeeId.InnerText = row["EmployeeID"].ToString();
-                fullName.InnerText = $"{row["FirstName"]} {row["LastName"]}";
+                fullName.InnerText = string.Format("{0} {1}", row["FirstName"], row["LastName"]);
                 email.InnerText = row["WorkEmail"].ToString();
                 phone.InnerText = row["WorkPhone"].ToString();
                 
                 // Address
-                string address = $"{row["Emirates"]}, {row["City"]}, {row["District"]}";
+                string address = string.Format("{0}, {1}, {2}", row["Emirates"], row["City"], row["District"]);
                 this.address.InnerText = address;
                 
                 if (row["DateOfBirth"] != DBNull.Value)
@@ -135,7 +135,7 @@ namespace EmployeService
         {
             // For now, we'll use JavaScript alert since we don't have an alert panel
             ScriptManager.RegisterStartupScript(this, this.GetType(), "AlertScript", 
-                $"alert('{message}');", true);
+                string.Format("alert('{0}');", message), true);
         }
     }
 } 
