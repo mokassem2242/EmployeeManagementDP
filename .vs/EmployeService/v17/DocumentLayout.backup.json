@@ -150,7 +150,8 @@
               "RelativeToolTip": "Login.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-08-06T15:35:56.229Z"
+              "WhenOpened": "2025-08-06T15:35:56.229Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -210,7 +211,8 @@
               "RelativeToolTip": "AdminEmployeeManagement.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-08-06T14:22:31.515Z"
+              "WhenOpened": "2025-08-06T14:22:31.515Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -233,7 +235,8 @@
               "RelativeToolTip": "Dashboard.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-08-06T14:39:47.226Z"
+              "WhenOpened": "2025-08-06T14:39:47.226Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
