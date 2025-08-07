@@ -256,7 +256,6 @@
                                         <asp:ListItem Text="All Status" Value="" />
                                         <asp:ListItem Text="Active" Value="Active" />
                                         <asp:ListItem Text="Inactive" Value="Inactive" />
-                                        <asp:ListItem Text="Terminated" Value="Terminated" />
                                     </asp:DropDownList>
                                 </div>
                                 <div class="form-actions">
@@ -495,7 +494,6 @@
                                             CssClass="form-control">
                                             <asp:ListItem Text="Active" Value="Active" />
                                             <asp:ListItem Text="Inactive" Value="Inactive" />
-                                            <asp:ListItem Text="Terminated" Value="Terminated" />
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group">

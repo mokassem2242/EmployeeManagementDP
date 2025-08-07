@@ -53,8 +53,10 @@
         }
 
         .logo {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
         }
 
         .logo-text h1 {
@@ -828,8 +830,11 @@
                     <button type="button" class="menu-toggle" id="menuToggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <img src="App_Code/images/t_500x300.jpg" alt="UAE Government Logo" class="logo" />
-                  
+                    <div class="logo">
+                        <a href="https://vectorlogoseek.com/dubai-police-logo-vector-svg/" target="_blank">
+                            <img src="https://vectorlogoseek.com/wp-content/uploads/2020/02/dubai-police-logo-vector.png" alt="UAE Government Logo" style="width: 100%; height: auto;" />
+                        </a>
+                    </div>
                 </div>
                 <div class="header-right">
                     <div class="user-info">
