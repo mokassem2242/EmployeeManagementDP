@@ -2,8 +2,11 @@ using System;
 using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Collections.Generic;
+using System.Linq;
 using EmployeService.DataAccess;
 using EmployeService.Models;
+using EmployeService.Services;
 
 namespace EmployeService
 {
@@ -537,9 +540,14 @@ namespace EmployeService
 
         protected void gvEmployees_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            // Show/hide export selected button based on whether any rows are selected
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                // Add any row-specific styling or data binding here
+                CheckBox chkSelect = (CheckBox)e.Row.FindControl("chkSelect");
+                if (chkSelect != null)
+                {
+                    chkSelect.Attributes.Add("onclick", "updateExportSelectedButton();");
+                }
             }
         }
 
@@ -656,6 +664,148 @@ namespace EmployeService
                 ShowAlert("Error clearing search: " + ex.Message, "danger");
             }
         }
+
+        protected void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validate export format
+                if (string.IsNullOrEmpty(ddlExportFormat.SelectedValue))
+                {
+                    ShowAlert("Please select an export format.", "warning");
+                    return;
+                }
+
+                // Get export parameters
+                ExportService.ExportFormat format = (ExportService.ExportFormat)Enum.Parse(typeof(ExportService.ExportFormat), ddlExportFormat.SelectedValue);
+                ExportService.ExportScope scope = (ExportService.ExportScope)Enum.Parse(typeof(ExportService.ExportScope), ddlExportScope.SelectedValue);
+
+                // Get data based on scope
+                DataTable employees = GetEmployeesForExport(scope);
+
+                if (employees.Rows.Count == 0)
+                {
+                    ShowAlert("No employees found to export.", "warning");
+                    return;
+                }
+
+                // Create export service and export
+                ExportService exportService = new ExportService();
+                string fileName = string.Format("EmployeeExport_{0:yyyyMMdd_HHmmss}", DateTime.Now);
+                exportService.ExportEmployees(employees, format, scope, fileName);
+
+                ShowAlert(string.Format("Export completed successfully. {0} employees exported.", employees.Rows.Count), "success");
+            }
+            catch (Exception ex)
+            {
+                ShowAlert("Error during export: " + ex.Message, "danger");
+            }
+        }
+
+        protected void btnExportSelected_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validate export format
+                if (string.IsNullOrEmpty(ddlExportFormat.SelectedValue))
+                {
+                    ShowAlert("Please select an export format.", "warning");
+                    return;
+                }
+
+                // Get selected employee IDs
+                List<int> selectedEmployeeIds = GetSelectedEmployeeIds();
+
+                if (selectedEmployeeIds.Count == 0)
+                {
+                    ShowAlert("Please select at least one employee to export.", "warning");
+                    return;
+                }
+
+                // Get data for selected employees
+                DataTable employees = _employeeDAL.GetEmployeesByIds(selectedEmployeeIds);
+
+                if (employees.Rows.Count == 0)
+                {
+                    ShowAlert("No employees found to export.", "warning");
+                    return;
+                }
+
+                // Create export service and export
+                ExportService exportService = new ExportService();
+                ExportService.ExportFormat format = (ExportService.ExportFormat)Enum.Parse(typeof(ExportService.ExportFormat), ddlExportFormat.SelectedValue);
+                string fileName = string.Format("SelectedEmployees_{0:yyyyMMdd_HHmmss}", DateTime.Now);
+                exportService.ExportEmployees(employees, format, ExportService.ExportScope.Selected, fileName);
+
+                ShowAlert(string.Format("Export completed successfully. {0} selected employees exported.", employees.Rows.Count), "success");
+            }
+            catch (Exception ex)
+            {
+                ShowAlert("Error during export: " + ex.Message, "danger");
+            }
+        }
+
+        private DataTable GetEmployeesForExport(ExportService.ExportScope scope)
+        {
+            switch (scope)
+            {
+                case ExportService.ExportScope.All:
+                    return _employeeDAL.GetAllEmployees();
+                
+                case ExportService.ExportScope.CurrentPage:
+                    // For current page, we need to get the current page data
+                    // This is a simplified implementation - in a real scenario, you might want to store the current data
+                    return _employeeDAL.GetAllEmployees();
+                
+                case ExportService.ExportScope.SearchResults:
+                    // Get employees based on current search criteria
+                    return GetEmployeesBySearchCriteria();
+                
+                default:
+                    return _employeeDAL.GetAllEmployees();
+            }
+        }
+
+        private DataTable GetEmployeesBySearchCriteria()
+        {
+            string searchTerm = txtSearch.Text.Trim();
+            string departmentId = ddlDepartment.SelectedValue;
+            string status = ddlStatus.SelectedValue;
+
+            // Build search criteria
+            if (!string.IsNullOrEmpty(searchTerm) || !string.IsNullOrEmpty(departmentId) || !string.IsNullOrEmpty(status))
+            {
+                int? deptId = null;
+                if (!string.IsNullOrEmpty(departmentId))
+                {
+                    deptId = int.Parse(departmentId);
+                }
+                return _employeeDAL.SearchEmployees(searchTerm, deptId, status);
+            }
+            else
+            {
+                return _employeeDAL.GetAllEmployees();
+            }
+        }
+
+        private List<int> GetSelectedEmployeeIds()
+        {
+            List<int> selectedIds = new List<int>();
+
+            foreach (GridViewRow row in gvEmployees.Rows)
+            {
+                CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
+                if (chkSelect != null && chkSelect.Checked)
+                {
+                    int employeeId = Convert.ToInt32(gvEmployees.DataKeys[row.RowIndex].Value);
+                    selectedIds.Add(employeeId);
+                }
+            }
+
+            return selectedIds;
+        }
+
+
 
 
     }

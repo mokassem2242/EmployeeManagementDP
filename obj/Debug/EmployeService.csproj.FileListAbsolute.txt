@@ -4,3 +4,8 @@ C:\Users\Mohammad KASEM\source\repos\EmployeService\bin\EmployeService.dll
 C:\Users\Mohammad KASEM\source\repos\EmployeService\bin\EmployeService.pdb
 C:\Users\Mohammad KASEM\source\repos\EmployeService\obj\Debug\EmployeService.dll
 C:\Users\Mohammad KASEM\source\repos\EmployeService\obj\Debug\EmployeService.pdb
+C:\Users\Mohammad KASEM\source\repos\EmployeService\bin\EPPlus.dll
+C:\Users\Mohammad KASEM\source\repos\EmployeService\bin\iTextSharp.dll
+C:\Users\Mohammad KASEM\source\repos\EmployeService\bin\iTextSharp.xml
+C:\Users\Mohammad KASEM\source\repos\EmployeService\bin\EPPlus.xml
+C:\Users\Mohammad KASEM\source\repos\EmployeService\obj\Debug\EmployeS.B519B77D.Up2Date
