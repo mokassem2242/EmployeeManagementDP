@@ -55,27 +55,7 @@
                     </a>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3 class="feature-title">Department Management</h3>
-                    <p class="feature-description">
-                        Organize employees by departments and manage department information
-                        with hierarchical structures.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <h3 class="feature-title">Position Management</h3>
-                    <p class="feature-description">
-                        Define and manage job positions, titles, and responsibilities
-                        within the organization.
-                    </p>
-                </div>
+            
 
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -96,17 +76,6 @@
                     <p class="feature-description">
                         Generate comprehensive reports and analytics for employee data,
                         department performance, and organizational insights.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <h3 class="feature-title">System Administration</h3>
-                    <p class="feature-description">
-                        Administrative tools for user management, system configuration,
-                        and data maintenance.
                     </p>
                 </div>
             </div>
