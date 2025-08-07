@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace EmployeService
 {
@@ -52,72 +53,76 @@ namespace EmployeService
         {
             try
             {
-                // Set avatar (first letter of first name)
-                string firstName = row["FirstName"].ToString();
-                if (!string.IsNullOrEmpty(firstName))
-                {
-                    litAvatar.Text = firstName.Substring(0, 1).ToUpper();
-                }
-                else
-                {
-                    litAvatar.Text = "👤";
-                }
-
                 // Set basic information
-                litFullName.Text = $"{row["FirstName"]} {row["LastName"]}";
-                litPosition.Text = row["PositionTitle"].ToString();
-                litDepartment.Text = row["DepartmentName"].ToString();
+                employeeName.InnerText = $"{row["FirstName"]} {row["LastName"]}";
+                employeePosition.InnerText = row["PositionTitle"].ToString();
+                employeeDepartment.InnerText = row["DepartmentName"].ToString();
 
                 // Personal Information
-                litEmiratesId.Text = row["EmiratesID"].ToString();
-                litPassportNumber.Text = row["PassportNumber"].ToString();
-                litNationality.Text = row["Nationality"].ToString();
+                employeeId.InnerText = row["EmployeeID"].ToString();
+                fullName.InnerText = $"{row["FirstName"]} {row["LastName"]}";
+                email.InnerText = row["WorkEmail"].ToString();
+                phone.InnerText = row["WorkPhone"].ToString();
+                
+                // Address
+                string address = $"{row["Emirates"]}, {row["City"]}, {row["District"]}";
+                this.address.InnerText = address;
                 
                 if (row["DateOfBirth"] != DBNull.Value)
                 {
-                    litDateOfBirth.Text = Convert.ToDateTime(row["DateOfBirth"]).ToString("MMMM dd, yyyy");
+                    dateOfBirth.InnerText = Convert.ToDateTime(row["DateOfBirth"]).ToString("MMMM dd, yyyy");
                 }
                 else
                 {
-                    litDateOfBirth.Text = "Not specified";
+                    dateOfBirth.InnerText = "Not specified";
                 }
-                
-                litGender.Text = row["Gender"].ToString();
-
-                // Contact Information
-                litWorkEmail.Text = row["WorkEmail"].ToString();
-                litPersonalEmail.Text = row["PersonalEmail"].ToString();
-                litWorkPhone.Text = row["WorkPhone"].ToString();
-                litPersonalPhone.Text = row["PersonalPhone"].ToString();
-
-                // Address Information
-                litEmirates.Text = row["Emirates"].ToString();
-                litCity.Text = row["City"].ToString();
-                litDistrict.Text = row["District"].ToString();
 
                 // Employment Information
+                department.InnerText = row["DepartmentName"].ToString();
+                position.InnerText = row["PositionTitle"].ToString();
+                
                 if (row["HireDate"] != DBNull.Value)
                 {
-                    litHireDate.Text = Convert.ToDateTime(row["HireDate"]).ToString("MMMM dd, yyyy");
+                    hireDate.InnerText = Convert.ToDateTime(row["HireDate"]).ToString("MMMM dd, yyyy");
                 }
                 else
                 {
-                    litHireDate.Text = "Not specified";
+                    hireDate.InnerText = "Not specified";
                 }
                 
-                litContractType.Text = row["ContractType"].ToString();
-                
-                // Employment status with styling
-                string status = row["EmploymentStatus"].ToString();
-                litEmploymentStatus.Text = $"<span class='status-badge status-{status.ToLower()}'>{status}</span>";
-                
-                litSalaryGrade.Text = row["SalaryGrade"].ToString();
-                litManager.Text = row["ManagerName"].ToString();
+                employmentStatus.InnerText = row["EmploymentStatus"].ToString();
+                salary.InnerText = row["SalaryGrade"].ToString();
+                manager.InnerText = row["ManagerName"].ToString();
+
+                // Additional Information
+                emergencyContact.InnerText = row["EmergencyContact"].ToString();
+                emergencyPhone.InnerText = row["EmergencyPhone"].ToString();
+                bloodType.InnerText = row["BloodType"].ToString();
+                nationality.InnerText = row["Nationality"].ToString();
             }
             catch (Exception ex)
             {
                 ShowAlert("Error populating profile: " + ex.Message, "danger");
             }
+        }
+
+        protected void btnEditProfile_Click(object sender, EventArgs e)
+        {
+            // Show message that edit profile is not implemented yet
+            ShowAlert("Edit Profile feature is not implemented yet. Please contact your administrator.", "info");
+        }
+
+        protected void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            // Show message that change password is not implemented yet
+            ShowAlert("Change Password feature is not implemented yet. Please contact your administrator.", "info");
+        }
+
+        protected void btnPrintProfile_Click(object sender, EventArgs e)
+        {
+            // Open print dialog
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "PrintScript", 
+                "window.print();", true);
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)
@@ -128,9 +133,9 @@ namespace EmployeService
 
         private void ShowAlert(string message, string type)
         {
-            alertPanel.Visible = true;
-            alertMessage.Text = message;
-            alertPanel.CssClass = "alert alert-" + type;
+            // For now, we'll use JavaScript alert since we don't have an alert panel
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "AlertScript", 
+                $"alert('{message}');", true);
         }
     }
 } 

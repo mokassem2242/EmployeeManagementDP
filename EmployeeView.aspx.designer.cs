@@ -12,52 +12,48 @@ namespace EmployeService {
     
     public partial class EmployeeView {
         
-        protected global::System.Web.UI.WebControls.LinkButton btnLogout;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl employeeName;
         
-        protected global::System.Web.UI.WebControls.Panel alertPanel;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl employeePosition;
         
-        protected global::System.Web.UI.WebControls.Label alertMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl employeeDepartment;
         
-        protected global::System.Web.UI.WebControls.Literal litAvatar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl employeeId;
         
-        protected global::System.Web.UI.WebControls.Literal litFullName;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fullName;
         
-        protected global::System.Web.UI.WebControls.Literal litPosition;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl email;
         
-        protected global::System.Web.UI.WebControls.Literal litDepartment;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl phone;
         
-        protected global::System.Web.UI.WebControls.Literal litEmiratesId;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl address;
         
-        protected global::System.Web.UI.WebControls.Literal litPassportNumber;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dateOfBirth;
         
-        protected global::System.Web.UI.WebControls.Literal litNationality;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl department;
         
-        protected global::System.Web.UI.WebControls.Literal litDateOfBirth;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl position;
         
-        protected global::System.Web.UI.WebControls.Literal litGender;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl hireDate;
         
-        protected global::System.Web.UI.WebControls.Literal litWorkEmail;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl employmentStatus;
         
-        protected global::System.Web.UI.WebControls.Literal litPersonalEmail;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl salary;
         
-        protected global::System.Web.UI.WebControls.Literal litWorkPhone;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl manager;
         
-        protected global::System.Web.UI.WebControls.Literal litPersonalPhone;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl emergencyContact;
         
-        protected global::System.Web.UI.WebControls.Literal litEmirates;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl emergencyPhone;
         
-        protected global::System.Web.UI.WebControls.Literal litCity;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bloodType;
         
-        protected global::System.Web.UI.WebControls.Literal litDistrict;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl nationality;
         
-        protected global::System.Web.UI.WebControls.Literal litHireDate;
+        protected global::System.Web.UI.WebControls.Button btnEditProfile;
         
-        protected global::System.Web.UI.WebControls.Literal litContractType;
+        protected global::System.Web.UI.WebControls.Button btnChangePassword;
         
-        protected global::System.Web.UI.WebControls.Literal litEmploymentStatus;
-        
-        protected global::System.Web.UI.WebControls.Literal litSalaryGrade;
-        
-        protected global::System.Web.UI.WebControls.Literal litManager;
+        protected global::System.Web.UI.WebControls.Button btnPrintProfile;
     }
 } 
