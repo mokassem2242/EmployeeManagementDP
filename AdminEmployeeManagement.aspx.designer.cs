@@ -40,7 +40,7 @@ namespace EmployeService {
         
         protected global::System.Web.UI.WebControls.GridView gvEmployees;
         
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl modalTitle;
+        protected global::System.Web.UI.WebControls.Label modalTitle;
         
         protected global::System.Web.UI.WebControls.HiddenField hdnEmployeeId;
         

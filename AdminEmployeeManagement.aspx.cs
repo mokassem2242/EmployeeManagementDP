@@ -139,7 +139,7 @@ namespace EmployeService
             {
                 // Clear form
                 ClearForm();
-                modalTitle.InnerText = "Add New Employee";
+                modalTitle.Text = "Add New Employee";
                 hdnEmployeeId.Value = "";
                 
                 // Set default values
@@ -336,7 +336,7 @@ namespace EmployeService
                     // Disable all form controls
                     DisableFormControls();
                     
-                    modalTitle.InnerText = "View Employee Details";
+                    modalTitle.Text = "View Employee Details";
                     btnSave.Visible = false;
                     btnCancel.Text = "Close";
                     
@@ -369,7 +369,7 @@ namespace EmployeService
                     // Enable all form controls
                     EnableFormControls();
                     
-                    modalTitle.InnerText = "Edit Employee";
+                    modalTitle.Text = "Edit Employee";
                     hdnEmployeeId.Value = employeeId.ToString();
                     btnSave.Visible = true;
                     btnCancel.Text = "Cancel";
@@ -557,9 +557,12 @@ namespace EmployeService
 
         private void ShowAlert(string message, string type)
         {
-            alertPanel.Visible = true;
-            alertMessage.Text = message;
-            alertPanel.CssClass = "alert alert-" + type;
+            if (alertPanel != null)
+            {
+                alertPanel.Visible = true;
+                alertMessage.Text = message;
+                alertPanel.CssClass = "alert alert-" + type;
+            }
         }
 
         protected void txtSearch_TextChanged(object sender, EventArgs e)
@@ -627,6 +630,30 @@ namespace EmployeService
                 ShowAlert("Error filtering by status: " + ex.Message, "danger");
                 // Hide search loading on error
                 ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
+            }
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Clear search fields
+                txtSearch.Text = "";
+                ddlDepartment.SelectedIndex = 0;
+                ddlStatus.SelectedIndex = 0;
+                
+                // Reload all employees
+                LoadEmployees();
+                
+                // Update the UpdatePanels
+                UpdatePanel1.Update();
+                UpdatePanel2.Update();
+                
+                ShowAlert("Search criteria cleared.", "info");
+            }
+            catch (Exception ex)
+            {
+                ShowAlert("Error clearing search: " + ex.Message, "danger");
             }
         }
 
