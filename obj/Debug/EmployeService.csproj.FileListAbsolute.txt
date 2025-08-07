@@ -1,6 +1,5 @@
 C:\Users\Mohammad KASEM\source\repos\EmployeService\obj\Debug\EmployeService.csproj.AssemblyReference.cache
 C:\Users\Mohammad KASEM\source\repos\EmployeService\obj\Debug\EmployeService.csproj.CoreCompileInputs.cache
-C:\Users\Mohammad KASEM\source\repos\EmployeService\bin\EmployeService.dll.config
 C:\Users\Mohammad KASEM\source\repos\EmployeService\bin\EmployeService.dll
 C:\Users\Mohammad KASEM\source\repos\EmployeService\bin\EmployeService.pdb
 C:\Users\Mohammad KASEM\source\repos\EmployeService\obj\Debug\EmployeService.dll

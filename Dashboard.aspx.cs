@@ -9,7 +9,7 @@ namespace EmployeService
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if user is authenticated
-            if (Session["IsAuthenticated"] == null || !(bool)Session["IsAuthenticated"])
+            if (Session["UserName"] == null)
             {
                 Response.Redirect("Login.aspx");
                 return;
@@ -25,17 +25,6 @@ namespace EmployeService
         {
             try
             {
-                // Display user information
-                if (Session["Username"] != null)
-                {
-                    userName.InnerText = "Welcome, " + Session["Username"].ToString();
-                }
-
-                if (Session["RoleName"] != null)
-                {
-                    userRole.InnerText = "Role: " + Session["RoleName"].ToString();
-                }
-
                 // Display login time
                 if (Session["LoginTime"] != null)
                 {
@@ -43,7 +32,7 @@ namespace EmployeService
                     loginTime.InnerText = "Login Time: " + loginDateTime.ToString("MMMM dd, yyyy 'at' hh:mm tt");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Log error (in a real application, you'd want to log this properly)
                 Response.Redirect("Login.aspx");

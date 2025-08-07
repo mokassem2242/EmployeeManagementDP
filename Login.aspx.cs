@@ -88,7 +88,8 @@ namespace EmployeService
 
                     // Store user information in session
                     Session["UserID"] = userId;
-                    Session["Username"] = username;
+                    Session["UserName"] = username; // Site.Master expects UserName
+                    Session["UserRole"] = roleName; // Site.Master expects UserRole
                     Session["Email"] = email;
                     Session["RoleID"] = roleId;
                     Session["RoleName"] = roleName;
@@ -98,15 +99,15 @@ namespace EmployeService
                     // Show success message
                     ShowSuccess("Login successful! Redirecting...");
 
-                    // Redirect to dashboard or appropriate page
-                    Response.AddHeader("Refresh", "2;url=Dashboard.aspx");
+                    // Redirect to dashboard immediately
+                    Response.Redirect("Dashboard.aspx");
                 }
                 else
                 {
                     ShowError("Invalid username or password. Please try again.");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Log the error (in a real application, you'd want to log this properly)
                 ShowError("An error occurred during login. Please try again.");
