@@ -205,36 +205,4 @@ Enable debug logging by adding to Web.config:
 </system.web>
 ```
 
-## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Authors
-
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
-
-## 🙏 Acknowledgments
-
-- Bootstrap team for the responsive UI framework
-- EPPlus developers for Excel export functionality
-- iTextSharp team for PDF generation capabilities
-- Microsoft for ASP.NET Web Forms framework
-
-## 📞 Support
-
-For support and questions:
-- Create an issue in the GitHub repository
-- Contact: your.email@example.com
-- Documentation: [Wiki Link]
-
----
-
-**Note**: This application is designed for internal HR use and should be deployed in a secure environment with proper authentication and authorization controls.
