@@ -170,9 +170,9 @@ namespace EmployeService.DataAccess
                         command.CommandType = CommandType.StoredProcedure;
 
                         // Add parameters with proper null handling
-                        command.Parameters.AddWithValue("@SearchTerm", (object)searchTerm ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@SearchTerm",((object)searchTerm)=="" ? DBNull.Value: (object)searchTerm);
                         command.Parameters.AddWithValue("@DepartmentID", (object)departmentId ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@EmploymentStatus", (object)employmentStatus ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@EmploymentStatus", (object)employmentStatus=="" ? DBNull.Value : (object)employmentStatus);
 
                         SqlDataAdapter adapter = new SqlDataAdapter(command);
                         DataTable dataTable = new DataTable("Employees");

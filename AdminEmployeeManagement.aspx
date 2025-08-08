@@ -327,17 +327,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="ddlDepartment">Filter by Department:</label>
-                                    <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control">
-                                        <asp:ListItem Text="All Departments" Value="" />
+                                    <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control"
+                                        AutoPostBack="true" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged">
                                     </asp:DropDownList>
                                 </div>
                                 <div class="form-group">
                                     <label for="ddlStatus">Filter by Status:</label>
                                     <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control"
                                         AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged">
-                                        <asp:ListItem Text="All Status" Value="" />
-                                        <asp:ListItem Text="Active" Value="Active" />
-                                        <asp:ListItem Text="Inactive" Value="Inactive" />
                                     </asp:DropDownList>
                                 </div>
                                 <div class="form-actions">

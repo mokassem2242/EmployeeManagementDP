@@ -45,16 +45,22 @@ namespace EmployeService
             }
         }
 
-        private void LoadInitialData()
+        private void LoadDropdownData()
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine("LoadDropdownData: Starting dropdown population");
+                
                 // Load departments for search dropdown
                 DataTable departments = _departmentDAL.GetAllDepartments();
                 ddlDepartment.DataSource = departments;
                 ddlDepartment.DataTextField = "DepartmentName";
                 ddlDepartment.DataValueField = "DepartmentID";
                 ddlDepartment.DataBind();
+                
+                // Always ensure "All Departments" is the first item
+                ddlDepartment.Items.Insert(0, new ListItem("All Departments", ""));
+                System.Diagnostics.Debug.WriteLine($"LoadDropdownData: Department dropdown loaded with {ddlDepartment.Items.Count} items");
 
                 // Load departments for modal
                 ddlDepartmentModal.DataSource = departments;
@@ -75,6 +81,40 @@ namespace EmployeService
                 ddlManager.DataTextField = "FullName";
                 ddlManager.DataValueField = "EmployeeID";
                 ddlManager.DataBind();
+                
+                // Load status dropdown items
+                ddlStatus.Items.Clear();
+                ddlStatus.Items.Add(new ListItem("All Status", ""));
+                ddlStatus.Items.Add(new ListItem("Active", "Active"));
+                ddlStatus.Items.Add(new ListItem("Inactive", "Inactive"));
+                
+                System.Diagnostics.Debug.WriteLine($"LoadDropdownData: Status dropdown loaded with {ddlStatus.Items.Count} items");
+                System.Diagnostics.Debug.WriteLine("LoadDropdownData: Dropdown population completed");
+            }
+            catch (Exception ex)
+            {
+                ShowAlert("Error loading dropdown data: " + ex.Message, "danger");
+            }
+        }
+
+        private void LoadInitialData()
+        {
+            try
+            {
+                // Load dropdown data
+                LoadDropdownData();
+                
+                // Ensure "All Departments" is selected by default only on first load
+                if (ddlDepartment.Items.Count > 0)
+                {
+                    ddlDepartment.SelectedIndex = 0;
+                }
+                
+                // Ensure "All Status" is selected by default only on first load
+                if (ddlStatus.Items.Count > 0)
+                {
+                    ddlStatus.SelectedIndex = 0;
+                }
 
                 // Load all employees
                 LoadEmployees();
@@ -105,9 +145,9 @@ namespace EmployeService
             {
                 string searchTerm = txtSearch.Text.Trim();
                 int? departmentId = null;
-                if (int.TryParse(ddlDepartment.SelectedValue, out int parsedDeptId))
+                if (!string.IsNullOrEmpty(ddlDepartment.SelectedValue))
                 {
-                    departmentId = parsedDeptId;
+                    departmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
                 }
                 string status = ddlStatus.SelectedValue;
 
@@ -115,11 +155,6 @@ namespace EmployeService
                 System.Diagnostics.Debug.WriteLine($"Search Term: '{searchTerm}'");
                 System.Diagnostics.Debug.WriteLine($"Department ID: {ddlDepartment.SelectedValue}");
                 System.Diagnostics.Debug.WriteLine($"Status: '{status}'");
-
-                if (!string.IsNullOrEmpty(ddlDepartment.SelectedValue))
-                {
-                    departmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
-                }
 
                 // Call the search method with conditional logic
                 // If searchTerm is provided, it overrides department and status filters
@@ -596,31 +631,41 @@ namespace EmployeService
             {
                 string searchTerm = txtSearch.Text.Trim();
                 
+                // Store the selected values before any operations
+                string selectedDepartmentValue = ddlDepartment.SelectedValue;
+                string selectedStatusValue = ddlStatus.SelectedValue;
+                System.Diagnostics.Debug.WriteLine($"txtSearch_TextChanged: Department value: {selectedDepartmentValue}, Status value: {selectedStatusValue}");
+                
                 // Only search if there's a search term or if the field is cleared
                 if (!string.IsNullOrEmpty(searchTerm) || string.IsNullOrEmpty(txtSearch.Text))
                 {
                     // Get current filter values
                     int? departmentId = null;
-                    string status = ddlStatus.SelectedValue;
+                    string status = selectedStatusValue;
 
-                    if (!string.IsNullOrEmpty(ddlDepartment.SelectedValue))
+                    if (!string.IsNullOrEmpty(selectedDepartmentValue))
                     {
-                        departmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
+                        departmentId = Convert.ToInt32(selectedDepartmentValue);
                     }
 
-                    // Perform search
+                    // Use the search method to combine all filters
                     DataTable employees = _employeeDAL.SearchEmployees(searchTerm, departmentId, status);
                     gvEmployees.DataSource = employees;
                     gvEmployees.DataBind();
 
-                    if (employees.Rows.Count == 0 && !string.IsNullOrEmpty(searchTerm))
+                    if (employees.Rows.Count == 0)
                     {
                         ShowAlert("No employees found matching your search criteria.", "info");
                     }
-                    else if (employees.Rows.Count > 0)
+                    else
                     {
                         ShowAlert($"Found {employees.Rows.Count} employee(s) matching your search criteria.", "success");
                     }
+                }
+                else
+                {
+                    // If search is empty, load all employees
+                    LoadEmployees();
                 }
                 
                 // Update the UpdatePanels
@@ -629,7 +674,7 @@ namespace EmployeService
             }
             catch (Exception ex)
             {
-                ShowAlert("Error during search: " + ex.Message, "danger");
+                ShowAlert("Error searching employees: " + ex.Message, "danger");
             }
         }
 
@@ -637,14 +682,18 @@ namespace EmployeService
         {
             try
             {
+                // Store the selected value before any operations
+                string selectedValue = ddlDepartment.SelectedValue;
+                System.Diagnostics.Debug.WriteLine($"ddlDepartment_SelectedIndexChanged: Original selected value: {selectedValue}");
+                
                 // Get current search term and status
                 string searchTerm = txtSearch.Text.Trim();
                 string status = ddlStatus.SelectedValue;
                 int? departmentId = null;
 
-                if (!string.IsNullOrEmpty(ddlDepartment.SelectedValue))
+                if (!string.IsNullOrEmpty(selectedValue))
                 {
-                    departmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
+                    departmentId = Convert.ToInt32(selectedValue);
                 }
 
                 // Use the search method to combine all filters
@@ -675,14 +724,19 @@ namespace EmployeService
         {
             try
             {
+                // Store the selected values before any operations
+                string selectedDepartmentValue = ddlDepartment.SelectedValue;
+                string selectedStatusValue = ddlStatus.SelectedValue;
+                System.Diagnostics.Debug.WriteLine($"ddlStatus_SelectedIndexChanged: Department value: {selectedDepartmentValue}, Status value: {selectedStatusValue}");
+                
                 // Get current search term and department
                 string searchTerm = txtSearch.Text.Trim();
-                string status = ddlStatus.SelectedValue;
+                string status = selectedStatusValue;
                 int? departmentId = null;
 
-                if (!string.IsNullOrEmpty(ddlDepartment.SelectedValue))
+                if (!string.IsNullOrEmpty(selectedDepartmentValue))
                 {
-                    departmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
+                    departmentId = Convert.ToInt32(selectedDepartmentValue);
                 }
 
                 // Use the search method to combine all filters
@@ -717,6 +771,12 @@ namespace EmployeService
                 txtSearch.Text = "";
                 ddlDepartment.SelectedIndex = 0;
                 ddlStatus.SelectedIndex = 0;
+                
+                // Ensure "All Departments" is selected
+                if (ddlDepartment.Items.Count > 0)
+                {
+                    ddlDepartment.SelectedIndex = 0;
+                }
                 
                 // Reload all employees
                 LoadEmployees();
