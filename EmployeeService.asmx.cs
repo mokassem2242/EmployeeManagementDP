@@ -199,7 +199,7 @@ namespace EmployeService.Services
         {
             try
             {
-                return _employeeDAL.SearchEmployees(searchTerm, departmentId, employmentStatus);
+                return _employeeDAL.SearchEmployees(searchTerm, employmentStatus);
             }
             catch (Exception ex)
             {

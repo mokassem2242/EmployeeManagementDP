@@ -18,9 +18,7 @@ namespace EmployeService.DataAccess
                 throw new Exception("Connection string 'UAE_EmployeeDB' not found in Web.config");
         }
 
-        /// <summary>
-        /// Get all employees with department and position information
-        /// </summary>
+       
         public DataTable GetAllEmployees()
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -38,9 +36,7 @@ namespace EmployeService.DataAccess
             }
         }
 
-        /// <summary>
-        /// Get employee by ID
-        /// </summary>
+     
         public DataTable GetEmployeeById(int employeeId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -59,9 +55,7 @@ namespace EmployeService.DataAccess
             }
         }
 
-        /// <summary>
-        /// Insert new employee
-        /// </summary>
+     
         public int InsertEmployee(Employee employee)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -101,9 +95,7 @@ namespace EmployeService.DataAccess
             }
         }
 
-        /// <summary>
-        /// Update existing employee
-        /// </summary>
+      
         public bool UpdateEmployee(Employee employee)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -144,9 +136,7 @@ namespace EmployeService.DataAccess
             }
         }
 
-        /// <summary>
-        /// Delete employee by ID
-        /// </summary>
+  
         public bool DeleteEmployee(int employeeId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -163,49 +153,54 @@ namespace EmployeService.DataAccess
             }
         }
 
-        /// <summary>
-        /// Search employees with filters
-        /// </summary>
-        public DataTable SearchEmployees(string searchTerm = null, int? departmentId = null, string employmentStatus = null)
+    
+        public DataTable SearchEmployees(string searchTerm = null, string employmentStatus = null)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
                     using (SqlCommand command = new SqlCommand("sp_Employee_Search", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        
+
+                        // Add parameters with proper null handling
                         command.Parameters.AddWithValue("@SearchTerm", (object)searchTerm ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DepartmentID", (object)departmentId ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@EmploymentStatus", (object)employmentStatus ?? DBNull.Value);
-                        
+                      
+                        command.Parameters.AddWithValue("@EmploymentStatus", ((object)employmentStatus==""&& (object)searchTerm != null) ? DBNull.Value: (object)employmentStatus );
+
                         SqlDataAdapter adapter = new SqlDataAdapter(command);
                         DataTable dataTable = new DataTable("Employees");
                         adapter.Fill(dataTable);
-                        
+
                         return dataTable;
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                // Log or handle the exception
+                // throw new Exception($"Error searching employees: {ex.Message}", ex);
 
-        /// <summary>
-        /// Get employees by department
-        /// </summary>
+                // Return an empty DataTable to satisfy method return type
+                return new DataTable("Employees");
+            }
+        }
+
+
         public DataTable GetEmployeesByDepartment(int departmentId)
         {
-            return SearchEmployees(null, departmentId, null);
+            // Since we removed department filtering, return all employees
+            return SearchEmployees(null, null);
         }
 
-        /// <summary>
-        /// Get employees by employment status
-        /// </summary>
+     
         public DataTable GetEmployeesByStatus(string employmentStatus)
         {
-            return SearchEmployees(null, null, employmentStatus);
+            return SearchEmployees(null, employmentStatus);
         }
 
-        /// <summary>
-        /// Get employee by UserID (for employees to view their own details)
-        /// </summary>
+       
         public DataTable GetEmployeeByUserId(int userId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -224,9 +219,7 @@ namespace EmployeService.DataAccess
             }
         }
 
-        /// <summary>
-        /// Get employees by IDs for export functionality
-        /// </summary>
+      
         public DataTable GetEmployeesByIds(List<int> employeeIds)
         {
             if (employeeIds == null || employeeIds.Count == 0)

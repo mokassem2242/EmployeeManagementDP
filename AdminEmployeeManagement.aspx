@@ -43,6 +43,37 @@
                     exportSelectedBtn.style.display = selectedCount > 0 ? 'inline-block' : 'none';
                 }
             }
+
+            // Search functionality improvements
+            function clearSearch() {
+                var searchBox = document.getElementById('<%= txtSearch.ClientID %>');
+                if (searchBox) {
+                    searchBox.value = '';
+                }
+
+                var departmentDropdown = document.getElementById('<%= ddlDepartment.ClientID %>');
+                if (departmentDropdown) {
+                    departmentDropdown.selectedIndex = 0;
+                }
+
+                var statusDropdown = document.getElementById('<%= ddlStatus.ClientID %>');
+                if (statusDropdown) {
+                    statusDropdown.selectedIndex = 0;
+                }
+            }
+
+            // Add search tips
+            function showSearchTips() {
+                var searchBox = document.getElementById('<%= txtSearch.ClientID %>');
+                if (searchBox && searchBox.value === '') {
+                    searchBox.placeholder = 'Enter employee name, ID, or email...';
+                }
+            }
+
+            // Initialize search tips on page load
+            window.onload = function () {
+                showSearchTips();
+            };
         </script>
         <style>
             .modal {
@@ -98,9 +129,57 @@
 
             .close {
                 color: #aaa;
+                float: right;
                 font-size: 28px;
                 font-weight: bold;
                 cursor: pointer;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+            }
+
+            /* Search improvements */
+            .search-section {
+                background: #f8f9fa;
+                padding: 20px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                border: 1px solid #dee2e6;
+            }
+
+            .search-form {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                align-items: end;
+            }
+
+            .form-group {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .form-actions {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .form-control:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+
+            /* Search results styling */
+            .search-results-info {
+                background: #e7f3ff;
+                border: 1px solid #b3d9ff;
+                border-radius: 4px;
+                padding: 10px;
+                margin-bottom: 15px;
             }
 
             .close:hover,
@@ -241,7 +320,10 @@
                                 <div class="form-group">
                                     <label for="txtSearch">Search Employees:</label>
                                     <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control"
-                                        placeholder="Enter employee name, ID, or email..."></asp:TextBox>
+                                        placeholder="Enter employee name, ID, or email..." AutoPostBack="true"
+                                        OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
+                                    <small class="form-text text-muted">Search by name, Emirates ID, work email, or
+                                        personal email</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="ddlDepartment">Filter by Department:</label>

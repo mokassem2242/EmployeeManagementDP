@@ -107,12 +107,22 @@ namespace EmployeService
                 int? departmentId = null;
                 string status = ddlStatus.SelectedValue;
 
+                // Log search parameters for debugging
+                //System.Diagnostics.Debug.WriteLine($"Search Term: '{searchTerm}'");
+                //System.Diagnostics.Debug.WriteLine($"Department ID: {ddlDepartment.SelectedValue}");
+                //System.Diagnostics.Debug.WriteLine($"Status: '{status}'");
+
                 if (!string.IsNullOrEmpty(ddlDepartment.SelectedValue))
                 {
                     departmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
                 }
 
-                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, departmentId, status);
+                // Call the search method
+                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, status);
+                
+                // Log results for debugging
+                System.Diagnostics.Debug.WriteLine($"Search returned {employees.Rows.Count} results");
+
                 gvEmployees.DataSource = employees;
                 gvEmployees.DataBind();
 
@@ -120,19 +130,20 @@ namespace EmployeService
                 {
                     ShowAlert("No employees found matching your search criteria.", "info");
                 }
+                else
+                {
+                    ShowAlert($"Found {employees.Rows.Count} employee(s) matching your search criteria.", "success");
+                }
                 
                 // Update the UpdatePanels
                 UpdatePanel1.Update();
                 UpdatePanel2.Update();
-                
-                // Hide search loading
-                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
             }
             catch (Exception ex)
             {
                 ShowAlert("Error searching employees: " + ex.Message, "danger");
-                // Hide search loading on error
-                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
+                System.Diagnostics.Debug.WriteLine($"Search error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
             }
         }
 
@@ -575,38 +586,82 @@ namespace EmployeService
 
         protected void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            // Auto-search functionality can be implemented here
-            // For now, we'll leave it empty as the search is handled by the Search button
+            try
+            {
+                string searchTerm = txtSearch.Text.Trim();
+                
+                // Only search if there's a search term or if the field is cleared
+                if (!string.IsNullOrEmpty(searchTerm) || string.IsNullOrEmpty(txtSearch.Text))
+                {
+                    // Get current filter values
+                    int? departmentId = null;
+                    string status = ddlStatus.SelectedValue;
+
+                    if (!string.IsNullOrEmpty(ddlDepartment.SelectedValue))
+                    {
+                        departmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
+                    }
+
+                    // Perform search
+                    DataTable employees = _employeeDAL.SearchEmployees(searchTerm, status);
+                    gvEmployees.DataSource = employees;
+                    gvEmployees.DataBind();
+
+                    if (employees.Rows.Count == 0 && !string.IsNullOrEmpty(searchTerm))
+                    {
+                        ShowAlert("No employees found matching your search criteria.", "info");
+                    }
+                    else if (employees.Rows.Count > 0)
+                    {
+                        ShowAlert($"Found {employees.Rows.Count} employee(s) matching your search criteria.", "success");
+                    }
+                }
+                
+                // Update the UpdatePanels
+                UpdatePanel1.Update();
+                UpdatePanel2.Update();
+            }
+            catch (Exception ex)
+            {
+                ShowAlert("Error during search: " + ex.Message, "danger");
+            }
         }
 
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                // Filter employees by selected department
-                string selectedDepartment = ddlDepartment.SelectedValue;
-                DataTable employees;
-                
-                if (string.IsNullOrEmpty(selectedDepartment))
+                // Get current search term and status
+                string searchTerm = txtSearch.Text.Trim();
+                string status = ddlStatus.SelectedValue;
+                int? departmentId = null;
+
+                if (!string.IsNullOrEmpty(ddlDepartment.SelectedValue))
                 {
-                    employees = _employeeDAL.GetAllEmployees();
+                    departmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
+                }
+
+                // Use the search method to combine all filters
+                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, status);
+                gvEmployees.DataSource = employees;
+                gvEmployees.DataBind();
+
+                if (employees.Rows.Count == 0)
+                {
+                    ShowAlert("No employees found matching your filter criteria.", "info");
                 }
                 else
                 {
-                    employees = _employeeDAL.GetEmployeesByDepartment(int.Parse(selectedDepartment));
+                    ShowAlert($"Found {employees.Rows.Count} employee(s) matching your filter criteria.", "success");
                 }
                 
-                gvEmployees.DataSource = employees;
-                gvEmployees.DataBind();
-                
-                // Hide search loading
-                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
+                // Update the UpdatePanels
+                UpdatePanel1.Update();
+                UpdatePanel2.Update();
             }
             catch (Exception ex)
             {
                 ShowAlert("Error filtering by department: " + ex.Message, "danger");
-                // Hide search loading on error
-                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
             }
         }
 
@@ -614,30 +669,37 @@ namespace EmployeService
         {
             try
             {
-                // Filter employees by selected status
-                string selectedStatus = ddlStatus.SelectedValue;
-                DataTable employees;
-                
-                if (string.IsNullOrEmpty(selectedStatus))
+                // Get current search term and department
+                string searchTerm = txtSearch.Text.Trim();
+                string status = ddlStatus.SelectedValue;
+                int? departmentId = null;
+
+                if (!string.IsNullOrEmpty(ddlDepartment.SelectedValue))
                 {
-                    employees = _employeeDAL.GetAllEmployees();
+                    departmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
+                }
+
+                // Use the search method to combine all filters
+                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, status);
+                gvEmployees.DataSource = employees;
+                gvEmployees.DataBind();
+
+                if (employees.Rows.Count == 0)
+                {
+                    ShowAlert("No employees found matching your filter criteria.", "info");
                 }
                 else
                 {
-                    employees = _employeeDAL.GetEmployeesByStatus(selectedStatus);
+                    ShowAlert($"Found {employees.Rows.Count} employee(s) matching your filter criteria.", "success");
                 }
                 
-                gvEmployees.DataSource = employees;
-                gvEmployees.DataBind();
-                
-                // Hide search loading
-                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
+                // Update the UpdatePanels
+                UpdatePanel1.Update();
+                UpdatePanel2.Update();
             }
             catch (Exception ex)
             {
                 ShowAlert("Error filtering by status: " + ex.Message, "danger");
-                // Hide search loading on error
-                ScriptManager.RegisterStartupScript(this, GetType(), "hideSearchLoading", "hideSearchLoading();", true);
             }
         }
 
@@ -773,14 +835,9 @@ namespace EmployeService
             string status = ddlStatus.SelectedValue;
 
             // Build search criteria
-            if (!string.IsNullOrEmpty(searchTerm) || !string.IsNullOrEmpty(departmentId) || !string.IsNullOrEmpty(status))
+            if (!string.IsNullOrEmpty(searchTerm) || !string.IsNullOrEmpty(status))
             {
-                int? deptId = null;
-                if (!string.IsNullOrEmpty(departmentId))
-                {
-                    deptId = int.Parse(departmentId);
-                }
-                return _employeeDAL.SearchEmployees(searchTerm, deptId, status);
+                return _employeeDAL.SearchEmployees(searchTerm, status);
             }
             else
             {
