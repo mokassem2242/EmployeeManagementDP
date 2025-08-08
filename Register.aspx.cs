@@ -131,7 +131,7 @@ namespace EmployeService
                 }
 
                 // Create user
-                int roleId = 2; // Default role ID for new registrations
+                int roleId = 1 ; // (admin) Default role ID for new registrations
                 int userId = authService.CreateUser(
                     txtUsername.Text.Trim(),
                     txtPassword.Text,

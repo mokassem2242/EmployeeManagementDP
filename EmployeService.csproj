@@ -75,6 +75,7 @@
   </ItemGroup>
   <!-- Removed Roslyn compiler reference to fix compilation issues -->
   <ItemGroup>
+    <Content Include="App_Code\image\t_500x300.jpg" />
     <Content Include="Web.config" />
     <Content Include="Global.asax" />
     <Content Include="EmployeeService.asmx" />

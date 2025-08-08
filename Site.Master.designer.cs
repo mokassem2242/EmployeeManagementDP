@@ -56,6 +56,8 @@ namespace EmployeService
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnLogout;
 
+
+
         /// <summary>
         /// navDashboard control.
         /// </summary>
