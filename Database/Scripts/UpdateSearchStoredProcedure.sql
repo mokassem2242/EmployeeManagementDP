@@ -1,5 +1,5 @@
 -- Update sp_Employee_Search stored procedure
--- This script updates the search functionality to include email search and remove department filter
+-- This script updates the search functionality with conditional logic
 
 USE UAE_EmployeeDB
 GO
@@ -15,6 +15,7 @@ GO
 -- Create the updated stored procedure
 CREATE PROCEDURE sp_Employee_Search
     @SearchTerm NVARCHAR(100) = NULL,
+    @DepartmentID INT = NULL,
     @EmploymentStatus NVARCHAR(20) = NULL
 AS
 BEGIN
@@ -28,14 +29,21 @@ BEGIN
     LEFT JOIN Employees m ON e.ManagerID = m.EmployeeID
     LEFT JOIN Users u ON e.UserID = u.UserID
     LEFT JOIN Roles r ON u.RoleID = r.RoleID
-    WHERE (@SearchTerm IS NULL OR 
-           e.FirstName LIKE '%' + @SearchTerm + '%' OR 
-           e.LastName LIKE '%' + @SearchTerm + '%' OR 
-           e.EmiratesID LIKE '%' + @SearchTerm + '%' OR
-           e.WorkEmail LIKE '%' + @SearchTerm + '%' OR
-           e.PersonalEmail LIKE '%' + @SearchTerm + '%' OR
-           e.FirstName + ' ' + e.LastName LIKE '%' + @SearchTerm + '%')
-    AND (@EmploymentStatus IS NULL OR e.EmploymentStatus = @EmploymentStatus)
+    WHERE 
+        -- When SearchTerm is provided, it overrides department and employment status filters
+        (@SearchTerm IS NOT NULL AND (
+            ISNULL(e.FirstName, '') LIKE '%' + @SearchTerm + '%' OR 
+            ISNULL(e.LastName, '') LIKE '%' + @SearchTerm + '%' OR 
+            ISNULL(e.EmiratesID, '') LIKE '%' + @SearchTerm + '%' OR
+            ISNULL(e.WorkEmail, '') LIKE '%' + @SearchTerm + '%' OR
+            ISNULL(e.PersonalEmail, '') LIKE '%' + @SearchTerm + '%' OR
+            (ISNULL(e.FirstName, '') + ' ' + ISNULL(e.LastName, '')) LIKE '%' + @SearchTerm + '%'
+        ))
+        OR
+        -- When SearchTerm is NULL, apply department and employment status filters together
+        (@SearchTerm IS NULL AND 
+         (@DepartmentID IS NULL OR e.DepartmentID = @DepartmentID) AND
+         (@EmploymentStatus IS NULL OR e.EmploymentStatus = @EmploymentStatus))
     ORDER BY e.EmployeeID DESC
 END
 GO
@@ -48,6 +56,8 @@ PRINT '- Emirates ID'
 PRINT '- Work Email'
 PRINT '- Personal Email'
 PRINT '- Full Name'
-PRINT '- Employment Status (filter)'
-PRINT 'Department parameter has been completely removed from the stored procedure.'
+PRINT '- Conditional Logic:'
+PRINT '  * When SearchTerm is provided: overrides department and status filters'
+PRINT '  * When SearchTerm is NULL: applies department and status filters together'
+PRINT '- Department and Employment Status filters work together when no search term is provided'
 GO

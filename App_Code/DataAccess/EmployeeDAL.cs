@@ -154,7 +154,12 @@ namespace EmployeService.DataAccess
         }
 
     
-        public DataTable SearchEmployees(string searchTerm = null, string employmentStatus = null)
+        /// <summary>
+        /// Search employees with filters
+        /// When searchTerm is provided, it overrides department and employment status filters
+        /// When searchTerm is null, both department and employment status filters are applied together
+        /// </summary>
+        public DataTable SearchEmployees(string searchTerm = null, int? departmentId = null, string employmentStatus = null)
         {
             try
             {
@@ -166,8 +171,8 @@ namespace EmployeService.DataAccess
 
                         // Add parameters with proper null handling
                         command.Parameters.AddWithValue("@SearchTerm", (object)searchTerm ?? DBNull.Value);
-                      
-                        command.Parameters.AddWithValue("@EmploymentStatus", ((object)employmentStatus==""&& (object)searchTerm != null) ? DBNull.Value: (object)employmentStatus );
+                        command.Parameters.AddWithValue("@DepartmentID", (object)departmentId ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@EmploymentStatus", (object)employmentStatus ?? DBNull.Value);
 
                         SqlDataAdapter adapter = new SqlDataAdapter(command);
                         DataTable dataTable = new DataTable("Employees");
@@ -190,14 +195,14 @@ namespace EmployeService.DataAccess
 
         public DataTable GetEmployeesByDepartment(int departmentId)
         {
-            // Since we removed department filtering, return all employees
-            return SearchEmployees(null, null);
+            // Return employees filtered by department only
+            return SearchEmployees(null, departmentId, null);
         }
 
      
         public DataTable GetEmployeesByStatus(string employmentStatus)
         {
-            return SearchEmployees(null, employmentStatus);
+            return SearchEmployees(null, null, employmentStatus);
         }
 
        

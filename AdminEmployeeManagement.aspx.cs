@@ -105,20 +105,26 @@ namespace EmployeService
             {
                 string searchTerm = txtSearch.Text.Trim();
                 int? departmentId = null;
+                if (int.TryParse(ddlDepartment.SelectedValue, out int parsedDeptId))
+                {
+                    departmentId = parsedDeptId;
+                }
                 string status = ddlStatus.SelectedValue;
 
                 // Log search parameters for debugging
-                //System.Diagnostics.Debug.WriteLine($"Search Term: '{searchTerm}'");
-                //System.Diagnostics.Debug.WriteLine($"Department ID: {ddlDepartment.SelectedValue}");
-                //System.Diagnostics.Debug.WriteLine($"Status: '{status}'");
+                System.Diagnostics.Debug.WriteLine($"Search Term: '{searchTerm}'");
+                System.Diagnostics.Debug.WriteLine($"Department ID: {ddlDepartment.SelectedValue}");
+                System.Diagnostics.Debug.WriteLine($"Status: '{status}'");
 
                 if (!string.IsNullOrEmpty(ddlDepartment.SelectedValue))
                 {
                     departmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
                 }
 
-                // Call the search method
-                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, status);
+                // Call the search method with conditional logic
+                // If searchTerm is provided, it overrides department and status filters
+                // If searchTerm is null, both department and status filters are applied together
+                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, departmentId, status);
                 
                 // Log results for debugging
                 System.Diagnostics.Debug.WriteLine($"Search returned {employees.Rows.Count} results");
@@ -603,7 +609,7 @@ namespace EmployeService
                     }
 
                     // Perform search
-                    DataTable employees = _employeeDAL.SearchEmployees(searchTerm, status);
+                    DataTable employees = _employeeDAL.SearchEmployees(searchTerm, departmentId, status);
                     gvEmployees.DataSource = employees;
                     gvEmployees.DataBind();
 
@@ -642,7 +648,7 @@ namespace EmployeService
                 }
 
                 // Use the search method to combine all filters
-                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, status);
+                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, departmentId, status);
                 gvEmployees.DataSource = employees;
                 gvEmployees.DataBind();
 
@@ -680,7 +686,7 @@ namespace EmployeService
                 }
 
                 // Use the search method to combine all filters
-                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, status);
+                DataTable employees = _employeeDAL.SearchEmployees(searchTerm, departmentId, status);
                 gvEmployees.DataSource = employees;
                 gvEmployees.DataBind();
 
@@ -837,7 +843,12 @@ namespace EmployeService
             // Build search criteria
             if (!string.IsNullOrEmpty(searchTerm) || !string.IsNullOrEmpty(status))
             {
-                return _employeeDAL.SearchEmployees(searchTerm, status);
+                int? deptId = null;
+                if (!string.IsNullOrEmpty(departmentId))
+                {
+                    deptId = int.Parse(departmentId);
+                }
+                return _employeeDAL.SearchEmployees(searchTerm, deptId, status);
             }
             else
             {
